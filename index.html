@@ -1106,56 +1106,6 @@ function addXP(amount){
 }
 
 function completeQuest(i){
- if(data.completed.includes(i))return;
- data.completed.push(i);
- addXP(25);
-
- if(!document.getElementById("message").textContent.includes("LEVEL UP")&&
-    !document.getElementById("message").textContent.includes("RANK MILESTONE")){
-  notify("QUEST COMPLETE! +25 XP ACQUIRED.");
- }
-
- save();
- render();
-}
-
-function upgradeStat(i){
- if(data.skillPoints<1){
-  notify("NOT ENOUGH SKILL POINTS!");
-  return;
- }
-
- data.skillPoints--;
- data.stats[i]++;
-
- const names=["STRENGTH","AGILITY","INTELLIGENCE","VITALITY"];
- notify(names[i]+" UPGRADED!");
- save();
- render();
-}
-
-function showStatus(){
- notify("SYSTEM ONLINE | LEVEL "+data.level+" | "+rank()+
- " | "+data.skillPoints+" SKILL POINTS AVAILABLE.");
-}
-
-document.getElementById("playerName").addEventListener("input",e=>{
- data.name=e.target.value;
- save();
-});
-
-function resetSystem(){
- if(!confirm("Delete all your saved Shadow System progress?"))return;
- data=fresh();
- save();
- notify("SYSTEM RESET COMPLETE. NEW JOURNEY STARTED.");
- render();
-}
-
-if(data.questDate!==today()){
- data.completed=[];
- data.questDate=today();
-}
 
 save();
 render();
