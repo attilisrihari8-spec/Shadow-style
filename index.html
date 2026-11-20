@@ -2,176 +2,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHADOW SYSTEM</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadow System</title>
+
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;background:#050914;color:#e9f5ff;
- font-family:Arial,sans-serif;padding:18px;
+* {
+  box-sizing: border-box;
 }
-main{max-width:500px;margin:auto}
-h1{text-align:center;color:#42d9ff;letter-spacing:4px}
-.sub{text-align:center;color:#8ab8d8}
-.card{
- background:linear-gradient(145deg,#101e36,#091323);
- border:1px solid #17618a;border-radius:16px;
- padding:18px;margin:16px 0;
- box-shadow:0 0 18px #00aaff22;
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px;
+  color: #d9f5ff;
+  background:
+    radial-gradient(ellipse at top, #102c50, #030712 65%);
+  font-family: Arial, sans-serif;
 }
-h2{color:#42d9ff;font-size:18px}
-input{
- width:100%;padding:13px;border-radius:9px;
- background:#07101f;color:white;border:1px solid #27769a;
+
+.system {
+  max-width: 700px;
+  margin: auto;
 }
-.row{display:flex;justify-content:space-between;margin:13px 0}
-.bar{height:12px;background:#26354a;border-radius:20px;overflow:hidden}
-.fill{height:100%;background:#35d8ff;width:0%;transition:.3s}
-button{
- background:#087eae;color:white;border:0;
- padding:11px;border-radius:8px;font-weight:bold;
+
+.header {
+  text-align: center;
+  padding: 25px 10px;
+  border: 1px solid #168cff;
+  background: #07182cbb;
+  box-shadow: 0 0 25px #007bff55;
+  border-radius: 14px;
 }
-.quest{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:13px 0}
-.quest span{font-size:14px}
-button:disabled{background:#34516a}
-#message{color:#69dcff;min-height:22px}
-.stat{color:#b9d8f0}
+
+.header h1 {
+  color: #55caff;
+  letter-spacing: 5px;
+  text-shadow: 0 0 15px #008cff;
+}
+
+.status {
+  color: #54ffb0;
+  letter-spacing: 3px;
+  font-size: 12px;
+}
+
+.panel {
+  margin-top: 18px;
+  padding: 20px;
+  background: linear-gradient(135deg,#0c2038dd,#07101fdd);
+  border: 1px solid #176cb5;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #006eff22;
+}
+
+.panel h2 {
+  color: #51caff;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  color: white;
+  background: #061326;
+  border: 1px solid #168cff;
+  border-radius: 7px;
+  outline: none;
+}
+
+.rank {
+  color: #ffe16a;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 0 0 15px #ffbd36;
+}
+
+.level {
+  font-size: 22px;
+  color: #58d9ff;
+}
+
+.bar {
+  height: 12px;
+  background: #14283d;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#007bff,#62eaff);
+  box-shadow: 0 0 15px #00aaff;
+  transition: width .5s;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat {
+  padding: 15px;
+  background: #0a1b30;
+  border: 1px solid #174b78;
+  border-radius: 9px;
+}
+
+.stat strong {
+  color: #65d8ff;
+  font-size: 22px;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  color: white;
+  background: linear-gradient(90deg,#0754a4,#008bce);
+  border: 1px solid #55caff;
+  border-radius: 7px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 12px #008cff55;
+}
+
+button:active {
+  transform: scale(.97);
+}
+
+.quest {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  margin: 10px 0;
+  background: #0a1b30;
+  border: 1px solid #16466d;
+  border-radius: 8px;
+}
+
+.quest button {
+  width: auto;
+  min-width: 90px;
+  margin: 0;
+}
+
+.done {
+  color: #5affb0;
+  border-color: #26c985;
+}
+
+.notification {
+  text-align: center;
+  color: #66dfff;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #00aaff; }
+  to { text-shadow: 0 0 20px #00cfff; }
+}
+
+.footer {
+  text-align: center;
+  margin: 25px 0;
+  color: #527b9c;
+  font-size: 11px;
+}
 </style>
 </head>
+
 <body>
-<main>
-<h1>⚡ SHADOW SYSTEM</h1>
-<p class="sub">[ PLAYER AWAKENING COMPLETE ]</p>
+<div class="system">
 
-<div class="card">
-<h2>👤 PLAYER PROFILE</h2>
-<input id="name" placeholder="Enter player name">
-<div class="row"><span>RANK</span><b id="rank">E</b></div>
-<div class="row"><span>LEVEL</span><b id="level">1</b></div>
-<div class="row"><span>EXPERIENCE</span><b id="xp">0 / 100</b></div>
-<div class="bar"><div class="fill" id="bar"></div></div>
-</div>
+  <div class="header">
+    <div class="status">● SYSTEM ONLINE</div>
+    <h1>SHADOW SYSTEM</h1>
+    <p>THE PLAYER HAS AWAKENED</p>
+  </div>
 
-<div class="card">
-<h2>📊 PLAYER STATS</h2>
-<div class="row stat">Strength <b id="str">10</b></div>
-<div class="row stat">Agility <b id="agi">10</b></div>
-<div class="row stat">Intelligence <b id="int">10</b></div>
-<div class="row stat">Vitality <b id="vit">10</b></div>
-</div>
+  <div class="panel">
+    <h2>PLAYER PROFILE</h2>
+    <input id="playerName" placeholder="Enter your hunter name">
+    <p>PLAYER RANK</p>
+    <div class="rank" id="rank">E-RANK</div>
+    <div class="level">LEVEL <span id="level">1</span></div>
+    <p>EXPERIENCE: <span id="xp">0</span> / 100 XP</p>
+    <div class="bar"><div class="fill" id="xpBar"></div></div>
+  </div>
 
-<div class="card">
-<h2>📜 DAILY QUESTS</h2>
-<p class="sub">Complete missions to earn 25 XP.</p>
-<div id="quests"></div>
-</div>
+  <div class="panel">
+    <h2>PLAYER STATUS</h2>
+    <div class="stats">
+      <div class="stat">STRENGTH<br><strong id="str">10</strong></div>
+      <div class="stat">AGILITY<br><strong id="agi">10</strong></div>
+      <div class="stat">INTELLIGENCE<br><strong id="intel">10</strong></div>
+      <div class="stat">VITALITY<br><strong id="vit">10</strong></div>
+    </div>
+  </div>
 
-<div class="card">
-<h2>🏆 ACHIEVEMENTS</h2>
-<p id="achievement">Complete your first quest!</p>
-</div>
+  <div class="panel">
+    <h2>DAILY QUESTS</h2>
+    <div id="quests"></div>
+  </div>
 
-<div class="card">
-<h2>🔔 SYSTEM MESSAGE</h2>
-<p id="message">Welcome, Hunter. Your journey begins.</p>
-<button onclick="resetGame()">RESET PROGRESS</button>
+  <div class="panel">
+    <h2>SYSTEM MESSAGE</h2>
+    <p class="notification" id="message">
+      Welcome, Player. Your journey begins now.
+    </p>
+    <button onclick="resetSystem()">RESET SYSTEM</button>
+  </div>
+
+  <div class="footer">
+    SHADOW SYSTEM // PLAYER DEVELOPMENT PROGRAM
+  </div>
 </div>
-</main>
 
 <script>
-const tasks=[
-"Study for 30 minutes",
-"Read for 20 minutes",
-"Practice a new skill",
-"Complete a personal goal"
+let data = JSON.parse(localStorage.getItem("shadowData")) || {
+  name: "",
+  level: 1,
+  xp: 0,
+  stats: [10,10,10,10],
+  completed: []
+};
+
+const missions = [
+  "Complete your morning routine",
+  "Study or learn something new",
+  "Read for 20 minutes",
+  "Complete a personal goal"
 ];
 
-let data;
-try{
- data=JSON.parse(localStorage.getItem("shadowData"));
-}catch(e){data=null}
-
-if(!data || typeof data!=="object"){
- data={name:"",level:1,xp:0,done:[],day:new Date().toDateString()};
-}
-if(!Array.isArray(data.done))data.done=[];
-if(!Number.isFinite(data.level)||data.level<1)data.level=1;
-if(!Number.isFinite(data.xp)||data.xp<0)data.xp=0;
-
-function save(){
- localStorage.setItem("shadowData",JSON.stringify(data));
+function save() {
+  localStorage.setItem("shadowData", JSON.stringify(data));
 }
 
-function render(){
- document.getElementById("name").value=data.name;
- document.getElementById("level").textContent=data.level;
- document.getElementById("xp").textContent=data.xp+" / 100";
- document.getElementById("bar").style.width=data.xp+"%";
- document.getElementById("rank").textContent=
- data.level>=20?"S":data.level>=10?"A":
- data.level>=5?"B":"E";
+function render() {
+  document.getElementById("playerName").value = data.name;
+  document.getElementById("level").textContent = data.level;
+  document.getElementById("xp").textContent = data.xp;
+  document.getElementById("xpBar").style.width = data.xp + "%";
 
- ["str","agi","int","vit"].forEach(id=>{
- document.getElementById(id).textContent=
- 10+(data.level-1)*2;
- });
+  document.getElementById("rank").textContent =
+    data.level >= 30 ? "S-RANK" :
+    data.level >= 15 ? "A-RANK" :
+    data.level >= 7 ? "B-RANK" : "E-RANK";
 
- let list=document.getElementById("quests");
- list.innerHTML="";
+  ["str","agi","intel","vit"].forEach((id,i) => {
+    document.getElementById(id).textContent = data.stats[i];
+  });
 
- tasks.forEach((task,i)=>{
- let row=document.createElement("div");
- row.className="quest";
- let span=document.createElement("span");
- span.textContent=task;
- let btn=document.createElement("button");
- btn.textContent=data.done.includes(i)?"DONE":"COMPLETE";
- btn.disabled=data.done.includes(i);
- btn.onclick=()=>complete(i);
- row.append(span,btn);
- list.append(row);
- });
+  document.getElementById("quests").innerHTML = "";
 
- document.getElementById("achievement").textContent=
- data.level>=5?"⭐ Rising Hunter":data.done.length>=1?
- "🏅 First Quest Completed":"Complete your first quest!";
+  missions.forEach((mission,i) => {
+    let done = data.completed.includes(i);
+    let item = document.createElement("div");
+    item.className = "quest" + (done ? " done" : "");
+
+    let label = document.createElement("span");
+    label.textContent = mission;
+
+    let button = document.createElement("button");
+    button.textContent = done ? "COMPLETED" : "CLAIM +25 XP";
+    button.disabled = done;
+    button.onclick = () => completeQuest(i);
+
+    item.append(label,button);
+    document.getElementById("quests").appendChild(item);
+  });
 }
 
-function complete(i){
- if(data.done.includes(i))return;
- data.done.push(i);
- data.xp+=25;
+function completeQuest(i) {
+  if (data.completed.includes(i)) return;
 
- if(data.xp>=100){
- data.xp-=100;
- data.level++;
- document.getElementById("message").textContent=
- "⚡ LEVEL UP! Your power increased!";
- }else{
- document.getElementById("message").textContent=
- "QUEST COMPLETE! +25 XP";
- }
- save();
- render();
+  data.completed.push(i);
+  data.xp += 25;
+
+  if (data.xp >= 100) {
+    data.xp -= 100;
+    data.level++;
+    data.stats = data.stats.map(n => n + 2);
+    document.getElementById("message").textContent =
+      "LEVEL UP! YOUR STATS HAVE INCREASED.";
+  } else {
+    document.getElementById("message").textContent =
+      "QUEST COMPLETE. EXPERIENCE ACQUIRED.";
+  }
+
+  save();
+  render();
 }
 
-document.getElementById("name").addEventListener("input",e=>{
- data.name=e.target.value;
- save();
+document.getElementById("playerName").addEventListener("input",e => {
+  data.name = e.target.value;
+  save();
 });
 
-function resetGame(){
- if(confirm("Are you sure you want to reset?")){
- localStorage.removeItem("shadowData");
- location.reload();
- }
+function resetSystem() {
+  if (!confirm("Reset all player progress?")) return;
+
+  localStorage.removeItem("shadowData");
+  data = {
+    name: "",
+    level: 1,
+    xp: 0,
+    stats: [10,10,10,10],
+    completed: []
+  };
+  document.getElementById("message").textContent =
+    "SYSTEM RESET COMPLETE.";
+  render();
 }
 
-if(data.day!==new Date().toDateString()){
- data.done=[];
- data.day=new Date().toDateString();
- save();
-}
 render();
 </script>
 </body>
