@@ -4,228 +4,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shadow System - Hunter Leveling</title>
+<title>SHADOW SYSTEM</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+ margin:0;padding:14px;
+ background:radial-gradient(ellipse at top,#102c50,#030712 75%);
+ color:#d9f4ff;font-family:Arial,sans-serif;
 }
-
-body {
-  margin: 0;
-  padding: 18px;
-  min-height: 100vh;
-  color: #d9f4ff;
-  background:
-    radial-gradient(ellipse at top, #102c50, #030712 70%);
-  font-family: Arial, sans-serif;
+.system{max-width:760px;margin:auto}
+header,.panel{
+ background:linear-gradient(135deg,#0c2038ee,#07101fee);
+ border:1px solid #176cb5;border-radius:13px;
+ box-shadow:0 0 18px #006eff22;
 }
-
-.system {
-  max-width: 720px;
-  margin: auto;
+header{text-align:center;padding:25px 12px}
+header h1{
+ color:#55caff;letter-spacing:4px;
+ text-shadow:0 0 15px #008cff;
 }
-
-.header {
-  text-align: center;
-  padding: 25px 12px;
-  background: #07182cdd;
-  border: 1px solid #168cff;
-  border-radius: 14px;
-  box-shadow: 0 0 25px #007bff55;
+.online{color:#54ffb0;font-size:12px;letter-spacing:3px}
+.panel{padding:17px;margin-top:16px}
+h2{font-size:15px;color:#51caff;letter-spacing:2px}
+h3{font-size:14px;color:#67d8ff}
+.muted{color:#91abc3;font-size:12px;line-height:1.5}
+input{
+ width:100%;padding:12px;color:white;
+ background:#061326;border:1px solid #168cff;
+ border-radius:7px;outline:none;
 }
-
-.header h1 {
-  color: #55caff;
-  letter-spacing: 4px;
-  text-shadow: 0 0 15px #008cff;
+.rank{font-size:28px;color:#ffe16a;font-weight:bold}
+.level{font-size:24px;color:#58d9ff;margin:10px 0}
+.bar{height:12px;background:#14283d;border-radius:20px;overflow:hidden;margin:12px 0}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#007bff,#62eaff);box-shadow:0 0 15px #00aaff;transition:width .5s}
+.stats,.skill-grid,.achievement-grid{
+ display:grid;grid-template-columns:1fr 1fr;gap:10px;
 }
-
-.online {
-  color: #54ffb0;
-  font-size: 12px;
-  letter-spacing: 3px;
+.stat,.skill,.achievement,.quest{
+ background:#0a1b30;border:1px solid #174b78;
+ border-radius:9px;padding:13px;
 }
-
-.panel {
-  margin-top: 18px;
-  padding: 18px;
-  background: linear-gradient(135deg,#0c2038ee,#07101fee);
-  border: 1px solid #176cb5;
-  border-radius: 12px;
-  box-shadow: 0 0 15px #006eff22;
+.stat-value{font-size:24px;color:#65d8ff;font-weight:bold;margin:7px 0}
+button{
+ padding:10px;color:white;
+ background:linear-gradient(90deg,#0754a4,#008bce);
+ border:1px solid #55caff;border-radius:7px;
+ font-weight:bold;cursor:pointer;
 }
-
-h2 {
-  color: #51caff;
-  font-size: 15px;
-  letter-spacing: 2px;
-  margin-top: 0;
+button:disabled{opacity:.4;cursor:not-allowed}
+.stat button,.skill button{width:100%;margin-top:8px}
+.quest{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px;margin:9px 0;
 }
-
-input {
-  width: 100%;
-  padding: 12px;
-  color: white;
-  background: #061326;
-  border: 1px solid #168cff;
-  border-radius: 7px;
-  outline: none;
+.quest span{font-size:13px}
+.quest button{font-size:11px;min-width:95px}
+.quest.done{border-color:#26c985;color:#5affb0}
+.skill{display:flex;flex-direction:column;justify-content:space-between}
+.skill-icon{font-size:27px}
+.skill p{font-size:12px;color:#9cb7d0;line-height:1.5}
+.skill small{color:#60d8ff}
+.skill.unlocked{border-color:#38d9a0;box-shadow:0 0 12px #16c88a33}
+.skill.locked{opacity:.7}
+.info-row{
+ display:flex;justify-content:space-between;gap:10px;
+ padding:9px 0;border-bottom:1px solid #18334b;
+ font-size:13px;
 }
-
-.rank {
-  font-size: 28px;
-  font-weight: bold;
-  color: #ffe16a;
-  text-shadow: 0 0 15px #ffbd36;
+.info-row strong{color:#60d8ff}
+.notification{
+ text-align:center;color:#66dfff;
+ text-shadow:0 0 12px #00aaff;line-height:1.6;
+ min-height:25px;
 }
-
-.level {
-  font-size: 25px;
-  color: #58d9ff;
-  margin: 10px 0;
-}
-
-.muted {
-  color: #91abc3;
-  font-size: 13px;
-}
-
-.bar {
-  height: 13px;
-  background: #14283d;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 12px 0;
-}
-
-.fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg,#007bff,#62eaff);
-  box-shadow: 0 0 15px #00aaff;
-  transition: width .5s;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.stat {
-  padding: 14px;
-  background: #0a1b30;
-  border: 1px solid #174b78;
-  border-radius: 9px;
-}
-
-.stat-name {
-  color: #8db7d5;
-  font-size: 12px;
-}
-
-.stat-value {
-  color: #65d8ff;
-  font-size: 25px;
-  font-weight: bold;
-  margin: 8px 0;
-}
-
-.stat button {
-  padding: 8px;
-  margin-top: 4px;
-}
-
-button {
-  padding: 12px;
-  color: white;
-  background: linear-gradient(90deg,#0754a4,#008bce);
-  border: 1px solid #55caff;
-  border-radius: 7px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:disabled {
-  opacity: .45;
-  cursor: not-allowed;
-}
-
-.quest {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding: 12px;
-  margin: 10px 0;
-  background: #0a1b30;
-  border: 1px solid #16466d;
-  border-radius: 8px;
-}
-
-.quest span {
-  font-size: 13px;
-}
-
-.quest button {
-  min-width: 105px;
-  font-size: 11px;
-}
-
-.quest.done {
-  border-color: #26c985;
-  color: #5affb0;
-}
-
-.notification {
-  text-align: center;
-  color: #66dfff;
-  text-shadow: 0 0 12px #00aaff;
-  line-height: 1.6;
-  min-height: 25px;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid #18334b;
-  font-size: 13px;
-}
-
-.info-row strong {
-  color: #60d8ff;
-}
-
-.footer {
-  text-align: center;
-  margin: 25px 0;
-  color: #527b9c;
-  font-size: 11px;
-}
-
-.reset {
-  width: 100%;
-  background: #641b2b;
-  border-color: #ff647d;
-  margin-top: 12px;
-}
-
-@keyframes pulse {
-  0% { opacity: .7; }
-  100% { opacity: 1; }
-}
-
-.online {
-  animation: pulse 1.5s infinite alternate;
-}
-
-@media(max-width:400px) {
-  body { padding: 10px; }
-  .quest { align-items: flex-start; }
-  .quest button { min-width: 90px; }
+.achievement{font-size:12px;line-height:1.5}
+.achievement strong{display:block;color:#65d8ff;margin-bottom:5px}
+.reset{width:100%;background:#641b2b;border-color:#ff647d;margin-top:12px}
+.footer{text-align:center;color:#527b9c;font-size:11px;margin:25px 0}
+@media(max-width:390px){
+ body{padding:9px}
+ .stats,.skill-grid,.achievement-grid{grid-template-columns:1fr 1fr}
+ .quest{align-items:flex-start}
 }
 </style>
 </head>
@@ -233,384 +93,396 @@ button:disabled {
 <body>
 <div class="system">
 
-  <header class="header">
-    <div class="online">● SYSTEM ONLINE</div>
-    <h1>SHADOW SYSTEM</h1>
-    <p>HUNTER LEVELING PROGRAM</p>
-  </header>
+<header>
+ <div class="online">● SYSTEM ONLINE</div>
+ <h1>SHADOW SYSTEM</h1>
+ <p>THE PLAYER HAS AWAKENED</p>
+ <p class="muted">HUNTER DEVELOPMENT PROGRAM</p>
+</header>
 
-  <section class="panel">
-    <h2>PLAYER PROFILE</h2>
-    <input id="playerName" maxlength="30"
-      placeholder="Enter your hunter name">
+<section class="panel">
+ <h2>PLAYER PROFILE</h2>
+ <input id="playerName" maxlength="30" placeholder="Enter hunter name">
+ <p class="muted">CURRENT HUNTER RANK</p>
+ <div class="rank" id="rank">E-RANK</div>
+ <div class="level">LEVEL <span id="level">1</span></div>
+ <div class="info-row">
+  <span>EXPERIENCE</span><strong id="xpText">0 / 100 XP</strong>
+ </div>
+ <div class="bar"><div class="fill" id="xpBar"></div></div>
+ <div class="info-row">
+  <span>TOTAL XP</span><strong id="totalXp">0</strong>
+ </div>
+ <div class="info-row">
+  <span>AVAILABLE SKILL POINTS</span><strong id="points">0</strong>
+ </div>
+ <div class="info-row">
+  <span>UNLOCKED ABILITIES</span><strong id="abilityCount">0</strong>
+ </div>
+</section>
 
-    <p class="muted">CURRENT HUNTER RANK</p>
-    <div class="rank" id="rank">E-RANK</div>
-
-    <div class="level">
-      LEVEL <span id="level">1</span>
-    </div>
-
-    <div class="info-row">
-      <span>EXPERIENCE</span>
-      <strong id="xpText">0 / 100 XP</strong>
-    </div>
-
-    <div class="bar">
-      <div class="fill" id="xpBar"></div>
-    </div>
-
-    <div class="info-row">
-      <span>TOTAL XP EARNED</span>
-      <strong id="totalXp">0</strong>
-    </div>
-
-    <div class="info-row">
-      <span>SKILL POINTS AVAILABLE</span>
-      <strong id="skillPoints">0</strong>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>HUNTER STATUS</h2>
-    <p class="muted">Use your skill points to improve your abilities.</p>
-
-    <div class="stats">
-
-      <div class="stat">
-        <div class="stat-name">STRENGTH</div>
-        <div class="stat-value" id="str">10</div>
-        <button onclick="upgradeStat(0)">+ UPGRADE</button>
-      </div>
-
-      <div class="stat">
-        <div class="stat-name">AGILITY</div>
-        <div class="stat-value" id="agi">10</div>
-        <button onclick="upgradeStat(1)">+ UPGRADE</button>
-      </div>
-
-      <div class="stat">
-        <div class="stat-name">INTELLIGENCE</div>
-        <div class="stat-value" id="intel">10</div>
-        <button onclick="upgradeStat(2)">+ UPGRADE</button>
-      </div>
-
-      <div class="stat">
-        <div class="stat-name">VITALITY</div>
-        <div class="stat-value" id="vit">10</div>
-        <button onclick="upgradeStat(3)">+ UPGRADE</button>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>RANK PROGRESSION</h2>
-
-    <div class="info-row">
-      <span>E-RANK</span><strong>LEVEL 1+</strong>
-    </div>
-    <div class="info-row">
-      <span>D-RANK</span><strong>LEVEL 5+</strong>
-    </div>
-    <div class="info-row">
-      <span>C-RANK</span><strong>LEVEL 10+</strong>
-    </div>
-    <div class="info-row">
-      <span>B-RANK</span><strong>LEVEL 15+</strong>
-    </div>
-    <div class="info-row">
-      <span>A-RANK</span><strong>LEVEL 20+</strong>
-    </div>
-    <div class="info-row">
-      <span>S-RANK</span><strong>LEVEL 30+</strong>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>DAILY QUESTS</h2>
-    <p class="muted">Complete each mission to earn 25 XP.</p>
-    <div id="quests"></div>
-    <div class="info-row">
-      <span>QUESTS COMPLETED TODAY</span>
-      <strong id="questCount">0 / 4</strong>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>SYSTEM NOTIFICATION</h2>
-    <p class="notification" id="message">
-      Welcome, Hunter. Your journey begins now.
-    </p>
-    <button style="width:100%" onclick="showStatus()">
-      CHECK SYSTEM STATUS
-    </button>
-  </section>
-
-  <section class="panel">
-    <h2>LEVELING RULES</h2>
-    <p class="muted">
-      XP required for next level = 100 + (Current Level - 1) × 25.
-    </p>
-    <p class="muted">
-      Every level-up grants 3 skill points. Every 5 levels
-      unlocks a rank evaluation milestone.
-    </p>
-    <button class="reset" onclick="resetSystem()">
-      RESET ALL PROGRESS
-    </button>
-  </section>
-
-  <div class="footer">
-    SHADOW SYSTEM // HUNTER DEVELOPMENT PROGRAM
+<section class="panel">
+ <h2>HUNTER STATUS</h2>
+ <p class="muted">Spend skill points to increase your stats.</p>
+ <div class="stats">
+  <div class="stat">
+   STRENGTH
+   <div class="stat-value" id="str">10</div>
+   <button onclick="upgradeStat(0)">+ UPGRADE</button>
   </div>
+  <div class="stat">
+   AGILITY
+   <div class="stat-value" id="agi">10</div>
+   <button onclick="upgradeStat(1)">+ UPGRADE</button>
+  </div>
+  <div class="stat">
+   INTELLIGENCE
+   <div class="stat-value" id="intel">10</div>
+   <button onclick="upgradeStat(2)">+ UPGRADE</button>
+  </div>
+  <div class="stat">
+   VITALITY
+   <div class="stat-value" id="vit">10</div>
+   <button onclick="upgradeStat(3)">+ UPGRADE</button>
+  </div>
+ </div>
+</section>
 
+<section class="panel">
+ <h2>SKILL TREE</h2>
+ <p class="muted">
+  Unlock special abilities with skill points.
+  Each ability costs 3 skill points.
+ </p>
+ <div class="skill-grid" id="skills"></div>
+</section>
+
+<section class="panel">
+ <h2>DAILY QUESTS</h2>
+ <p class="muted">Complete missions to earn 25 XP each.</p>
+ <div id="quests"></div>
+ <div class="info-row">
+  <span>QUESTS COMPLETED</span>
+  <strong id="questCount">0 / 4</strong>
+ </div>
+</section>
+
+<section class="panel">
+ <h2>ACHIEVEMENTS</h2>
+ <div class="achievement-grid" id="achievements"></div>
+</section>
+
+<section class="panel">
+ <h2>RANK PROGRESSION</h2>
+ <div class="info-row"><span>E-RANK</span><strong>LEVEL 1+</strong></div>
+ <div class="info-row"><span>D-RANK</span><strong>LEVEL 5+</strong></div>
+ <div class="info-row"><span>C-RANK</span><strong>LEVEL 10+</strong></div>
+ <div class="info-row"><span>B-RANK</span><strong>LEVEL 15+</strong></div>
+ <div class="info-row"><span>A-RANK</span><strong>LEVEL 20+</strong></div>
+ <div class="info-row"><span>S-RANK</span><strong>LEVEL 30+</strong></div>
+</section>
+
+<section class="panel">
+ <h2>SYSTEM NOTIFICATION</h2>
+ <p class="notification" id="message">
+  Welcome, Hunter. Your journey begins now.
+ </p>
+ <button style="width:100%" onclick="showStatus()">CHECK SYSTEM STATUS</button>
+</section>
+
+<section class="panel">
+ <h2>SYSTEM SETTINGS</h2>
+ <p class="muted">
+  Resetting deletes your saved player level, quests, stats and abilities.
+ </p>
+ <button class="reset" onclick="resetSystem()">RESET ALL PROGRESS</button>
+</section>
+
+<div class="footer">SHADOW SYSTEM // PLAYER DEVELOPMENT PROGRAM</div>
 </div>
 
 <script>
-const STORAGE_KEY = "shadowData";
+const KEY="shadowData";
 
-function getToday() {
-  const d = new Date();
-  return d.getFullYear() + "-" +
-    String(d.getMonth()+1).padStart(2,"0") + "-" +
-    String(d.getDate()).padStart(2,"0");
+function today(){
+ const d=new Date();
+ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 }
 
-function defaultData() {
-  return {
-    name: "",
-    level: 1,
-    xp: 0,
-    totalXp: 0,
-    skillPoints: 0,
-    stats: [10,10,10,10],
-    completed: [],
-    questDate: getToday()
-  };
+function fresh(){
+ return {
+  name:"",level:1,xp:0,totalXp:0,skillPoints:0,
+  stats:[10,10,10,10],completed:[],questDate:today(),
+  abilities:[]
+ };
 }
 
-function loadData() {
-  try {
-    const old = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (!old || typeof old !== "object") return defaultData();
-
-    const base = defaultData();
-
-    base.name = typeof old.name === "string" ? old.name : "";
-    base.level = Math.max(1, Number(old.level) || 1);
-    base.xp = Math.max(0, Number(old.xp) || 0);
-    base.totalXp = Math.max(
-      0, Number(old.totalXp) ||
-      ((base.level - 1) * 100 + base.xp)
-    );
-
-    base.skillPoints = Math.max(
-      0, Number(old.skillPoints) || 0
-    );
-
-    if (Array.isArray(old.stats) && old.stats.length === 4) {
-      base.stats = old.stats.map(n =>
-        Math.max(0, Number(n) || 0)
-      );
-    }
-
-    base.completed = Array.isArray(old.completed)
-      ? old.completed.filter(i =>
-          Number.isInteger(i) && i >= 0 && i < 4
-        )
-      : [];
-
-    base.questDate = old.questDate || "";
-
-    if (base.questDate !== getToday()) {
-      base.completed = [];
-      base.questDate = getToday();
-    }
-
-    return base;
-  } catch (error) {
-    return defaultData();
+function load(){
+ try{
+  const old=JSON.parse(localStorage.getItem(KEY));
+  if(!old||typeof old!=="object")return fresh();
+  const d=fresh();
+  d.name=typeof old.name==="string"?old.name:"";
+  d.level=Math.max(1,Number(old.level)||1);
+  d.xp=Math.max(0,Number(old.xp)||0);
+  d.totalXp=Math.max(0,Number(old.totalXp)||0);
+  d.skillPoints=Math.max(0,Number(old.skillPoints)||0);
+  if(Array.isArray(old.stats)&&old.stats.length===4)
+   d.stats=old.stats.map(x=>Math.max(0,Number(x)||0));
+  if(Array.isArray(old.completed))
+   d.completed=old.completed.filter(x=>Number.isInteger(x)&&x>=0&&x<4);
+  if(Array.isArray(old.abilities))
+   d.abilities=old.abilities.filter(x=>Number.isInteger(x)&&x>=0&&x<4);
+  d.questDate=old.questDate||"";
+  if(d.questDate!==today()){
+   d.completed=[];
+   d.questDate=today();
   }
+  return d;
+ }catch(e){return fresh();}
 }
 
-let data = loadData();
+let data=load();
 
-const missions = [
-  "Complete your morning routine",
-  "Study or learn something new",
-  "Read for 20 minutes",
-  "Complete a personal goal"
+const missions=[
+ "Complete your morning routine",
+ "Study or learn something new",
+ "Read for 20 minutes",
+ "Complete a personal goal"
 ];
 
-function xpNeeded() {
-  return 100 + (data.level - 1) * 25;
+const skills=[
+ {name:"Shadow Step",icon:"🌑",level:5,desc:"A special movement ability. Unlock your first shadow skill."},
+ {name:"Iron Will",icon:"🛡️",level:10,desc:"A resilience-themed hunter ability."},
+ {name:"Tactical Mind",icon:"🧠",level:15,desc:"A strategy-themed hunter ability."},
+ {name:"Monarch Aura",icon:"👑",level:30,desc:"The ultimate legendary hunter ability."}
+];
+
+const achievements=[
+ {name:"Awakening",desc:"Reach level 5",test:()=>data.level>=5},
+ {name:"Rising Hunter",desc:"Reach level 10",test:()=>data.level>=10},
+ {name:"Elite Hunter",desc:"Reach level 20",test:()=>data.level>=20},
+ {name:"Shadow Monarch",desc:"Reach level 30",test:()=>data.level>=30},
+ {name:"Quest Beginner",desc:"Complete 4 quests in total",test:()=>data.totalXp>=100},
+ {name:"Skill Collector",desc:"Unlock 2 abilities",test:()=>data.abilities.length>=2}
+];
+
+function needed(){
+ return 100+(data.level-1)*25;
 }
 
-function getRank() {
-  if (data.level >= 30) return "S-RANK";
-  if (data.level >= 20) return "A-RANK";
-  if (data.level >= 15) return "B-RANK";
-  if (data.level >= 10) return "C-RANK";
-  if (data.level >= 5) return "D-RANK";
-  return "E-RANK";
+function rank(){
+ if(data.level>=30)return "S-RANK";
+ if(data.level>=20)return "A-RANK";
+ if(data.level>=15)return "B-RANK";
+ if(data.level>=10)return "C-RANK";
+ if(data.level>=5)return "D-RANK";
+ return "E-RANK";
 }
 
-function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(data));
 }
 
-function render() {
-  document.getElementById("playerName").value = data.name;
-
-  document.getElementById("level").textContent = data.level;
-  document.getElementById("rank").textContent = getRank();
-
-  document.getElementById("xpText").textContent =
-    data.xp + " / " + xpNeeded() + " XP";
-
-  document.getElementById("xpBar").style.width =
-    Math.min(100, data.xp / xpNeeded() * 100) + "%";
-
-  document.getElementById("totalXp").textContent =
-    data.totalXp;
-
-  document.getElementById("skillPoints").textContent =
-    data.skillPoints;
-
-  const statIds = ["str","agi","intel","vit"];
-
-  statIds.forEach((id,i) => {
-    document.getElementById(id).textContent =
-      data.stats[i];
-  });
-
-  document.querySelectorAll(".stat button").forEach(button => {
-    button.disabled = data.skillPoints < 1;
-  });
-
-  const questBox = document.getElementById("quests");
-  questBox.innerHTML = "";
-
-  missions.forEach((mission,i) => {
-    const done = data.completed.includes(i);
-
-    const item = document.createElement("div");
-    item.className = "quest" + (done ? " done" : "");
-
-    const label = document.createElement("span");
-    label.textContent = mission;
-
-    const button = document.createElement("button");
-    button.textContent = done ? "COMPLETED" : "CLAIM +25 XP";
-    button.disabled = done;
-    button.onclick = () => completeQuest(i);
-
-    item.append(label,button);
-    questBox.appendChild(item);
-  });
-
-  document.getElementById("questCount").textContent =
-    data.completed.length + " / 4";
+function notify(message){
+ document.getElementById("message").textContent=message;
 }
 
-function addXP(amount) {
-  data.xp += amount;
-  data.totalXp += amount;
+function render(){
+ document.getElementById("playerName").value=data.name;
+ document.getElementById("level").textContent=data.level;
+ document.getElementById("rank").textContent=rank();
+ document.getElementById("xpText").textContent=data.xp+" / "+needed()+" XP";
+ document.getElementById("xpBar").style.width=(data.xp/needed()*100)+"%";
+ document.getElementById("totalXp").textContent=data.totalXp;
+ document.getElementById("points").textContent=data.skillPoints;
+ document.getElementById("abilityCount").textContent=data.abilities.length;
 
-  let levelsGained = 0;
+ ["str","agi","intel","vit"].forEach((id,i)=>{
+  document.getElementById(id).textContent=data.stats[i];
+ });
 
-  while (data.xp >= xpNeeded()) {
-    data.xp -= xpNeeded();
-    data.level++;
-    data.skillPoints += 3;
-    levelsGained++;
+ document.querySelectorAll(".stat button").forEach(b=>{
+  b.disabled=data.skillPoints<1;
+ });
+
+ renderSkills();
+ renderQuests();
+ renderAchievements();
+}
+
+function renderSkills(){
+ const box=document.getElementById("skills");
+ box.innerHTML="";
+
+ skills.forEach((skill,i)=>{
+  const unlocked=data.abilities.includes(i);
+  const levelReady=data.level>=skill.level;
+  const canUnlock=levelReady&&!unlocked&&data.skillPoints>=3;
+
+  const card=document.createElement("div");
+  card.className="skill "+(unlocked?"unlocked":"locked");
+
+  const icon=document.createElement("div");
+  icon.className="skill-icon";
+  icon.textContent=skill.icon;
+
+  const title=document.createElement("h3");
+  title.textContent=skill.name;
+
+  const desc=document.createElement("p");
+  desc.textContent=skill.desc;
+
+  const req=document.createElement("small");
+  req.textContent="Required level: "+skill.level+" | Cost: 3 points";
+
+  const button=document.createElement("button");
+  button.textContent=unlocked?"UNLOCKED":!levelReady?"LEVEL LOCKED":"UNLOCK SKILL";
+  button.disabled=!canUnlock;
+  button.onclick=()=>unlockSkill(i);
+
+  card.append(icon,title,desc,req,button);
+  box.appendChild(card);
+ });
+}
+
+function unlockSkill(i){
+ const skill=skills[i];
+ if(data.abilities.includes(i)||data.level<skill.level||data.skillPoints<3)return;
+
+ data.skillPoints-=3;
+ data.abilities.push(i);
+ notify("ABILITY UNLOCKED: "+skill.name+"!");
+ save();
+ render();
+}
+
+function renderQuests(){
+ const box=document.getElementById("quests");
+ box.innerHTML="";
+
+ missions.forEach((mission,i)=>{
+  const done=data.completed.includes(i);
+  const item=document.createElement("div");
+  item.className="quest"+(done?" done":"");
+
+  const label=document.createElement("span");
+  label.textContent=mission;
+
+  const button=document.createElement("button");
+  button.textContent=done?"COMPLETED":"CLAIM +25 XP";
+  button.disabled=done;
+  button.onclick=()=>completeQuest(i);
+
+  item.append(label,button);
+  box.appendChild(item);
+ });
+
+ document.getElementById("questCount").textContent=
+  data.completed.length+" / 4";
+}
+
+function renderAchievements(){
+ const box=document.getElementById("achievements");
+ box.innerHTML="";
+
+ achievements.forEach(a=>{
+  const unlocked=a.test();
+  const card=document.createElement("div");
+  card.className="achievement";
+
+  const title=document.createElement("strong");
+  title.textContent=(unlocked?"🏆 ":"🔒 ")+a.name;
+
+  const desc=document.createElement("span");
+  desc.textContent=a.desc;
+
+  const status=document.createElement("p");
+  status.className="muted";
+  status.textContent=unlocked?"UNLOCKED":"LOCKED";
+
+  card.append(title,desc,status);
+  box.appendChild(card);
+ });
+}
+
+function addXP(amount){
+ data.xp+=amount;
+ data.totalXp+=amount;
+
+ let gained=0;
+ let reachedRank=false;
+
+ while(data.xp>=needed()){
+  data.xp-=needed();
+  data.level++;
+  data.skillPoints+=3;
+  gained++;
+
+  if(data.level===5||data.level===10||data.level===15||
+     data.level===20||data.level===30){
+   reachedRank=true;
   }
+ }
 
-  if (levelsGained > 0) {
-    if (data.level % 5 === 0) {
-      document.getElementById("message").textContent =
-        "RANK EVALUATION MILESTONE REACHED! CURRENT RANK: " +
-        getRank();
-    } else if (data.level % 10 === 0) {
-      document.getElementById("message").textContent =
-        "SPECIAL TITLE MILESTONE UNLOCKED!";
-    } else {
-      document.getElementById("message").textContent =
-        "LEVEL UP! " + levelsGained +
-        " LEVEL(S) GAINED. +3 SKILL POINTS PER LEVEL!";
-    }
-  }
-}
-
-function completeQuest(i) {
-  if (data.completed.includes(i)) return;
-
-  data.completed.push(i);
-  addXP(25);
-
-  if (data.level === 1 && data.xp < xpNeeded()) {
-    document.getElementById("message").textContent =
-      "QUEST COMPLETE. +25 XP ACQUIRED.";
-  }
-
-  save();
-  render();
-}
-
-function upgradeStat(index) {
-  if (data.skillPoints < 1) {
-    document.getElementById("message").textContent =
-      "NOT ENOUGH SKILL POINTS!";
-    return;
-  }
-
-  data.skillPoints--;
-  data.stats[index]++;
-
-  const names = [
-    "STRENGTH",
-    "AGILITY",
-    "INTELLIGENCE",
-    "VITALITY"
-  ];
-
-  document.getElementById("message").textContent =
-    names[index] + " UPGRADED!";
-
-  save();
-  render();
-}
-
-function showStatus() {
-  document.getElementById("message").textContent =
-    "SYSTEM ONLINE. LEVEL " + data.level +
-    " | " + getRank() +
-    " | " + data.skillPoints + " SKILL POINTS AVAILABLE.";
-
-  render();
-}
-
-document.getElementById("playerName")
-  .addEventListener("input", function(event) {
-    data.name = event.target.value;
-    save();
-  });
-
-function resetSystem() {
-  const confirmReset = confirm(
-    "Are you sure? This will delete all player progress."
+ if(gained>0){
+  notify(
+   (reachedRank?"RANK MILESTONE REACHED! ":"LEVEL UP! ")+
+   "LEVEL "+data.level+"! +"+(gained*3)+" SKILL POINTS."
   );
+ }
+}
 
-  if (!confirmReset) return;
+function completeQuest(i){
+ if(data.completed.includes(i))return;
+ data.completed.push(i);
+ addXP(25);
 
-  data = defaultData();
-  save();
+ if(!document.getElementById("message").textContent.includes("LEVEL UP")&&
+    !document.getElementById("message").textContent.includes("RANK MILESTONE")){
+  notify("QUEST COMPLETE! +25 XP ACQUIRED.");
+ }
 
-  document.getElementById("message").textContent =
-    "SYSTEM RESET COMPLETE. NEW JOURNEY STARTED.";
+ save();
+ render();
+}
 
-  render();
+function upgradeStat(i){
+ if(data.skillPoints<1){
+  notify("NOT ENOUGH SKILL POINTS!");
+  return;
+ }
+
+ data.skillPoints--;
+ data.stats[i]++;
+
+ const names=["STRENGTH","AGILITY","INTELLIGENCE","VITALITY"];
+ notify(names[i]+" UPGRADED!");
+ save();
+ render();
+}
+
+function showStatus(){
+ notify("SYSTEM ONLINE | LEVEL "+data.level+" | "+rank()+
+ " | "+data.skillPoints+" SKILL POINTS AVAILABLE.");
+}
+
+document.getElementById("playerName").addEventListener("input",e=>{
+ data.name=e.target.value;
+ save();
+});
+
+function resetSystem(){
+ if(!confirm("Delete all your saved Shadow System progress?"))return;
+ data=fresh();
+ save();
+ notify("SYSTEM RESET COMPLETE. NEW JOURNEY STARTED.");
+ render();
+}
+
+if(data.questDate!==today()){
+ data.completed=[];
+ data.questDate=today();
 }
 
 save();
