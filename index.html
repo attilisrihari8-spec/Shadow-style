@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHADOW SYSTEM</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#050914;color:#e9f5ff;
+ font-family:Arial,sans-serif;padding:18px;
+}
+main{max-width:500px;margin:auto}
+h1{text-align:center;color:#42d9ff;letter-spacing:4px}
+.sub{text-align:center;color:#8ab8d8}
+.card{
+ background:linear-gradient(145deg,#101e36,#091323);
+ border:1px solid #17618a;border-radius:16px;
+ padding:18px;margin:16px 0;
+ box-shadow:0 0 18px #00aaff22;
+}
+h2{color:#42d9ff;font-size:18px}
+input{
+ width:100%;padding:13px;border-radius:9px;
+ background:#07101f;color:white;border:1px solid #27769a;
+}
+.row{display:flex;justify-content:space-between;margin:13px 0}
+.bar{height:12px;background:#26354a;border-radius:20px;overflow:hidden}
+.fill{height:100%;background:#35d8ff;width:0%;transition:.3s}
+button{
+ background:#087eae;color:white;border:0;
+ padding:11px;border-radius:8px;font-weight:bold;
+}
+.quest{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:13px 0}
+.quest span{font-size:14px}
+button:disabled{background:#34516a}
+#message{color:#69dcff;min-height:22px}
+.stat{color:#b9d8f0}
+</style>
+</head>
+<body>
+<main>
+<h1>⚡ SHADOW SYSTEM</h1>
+<p class="sub">[ PLAYER AWAKENING COMPLETE ]</p>
+
+<div class="card">
+<h2>👤 PLAYER PROFILE</h2>
+<input id="name" placeholder="Enter player name">
+<div class="row"><span>RANK</span><b id="rank">E</b></div>
+<div class="row"><span>LEVEL</span><b id="level">1</b></div>
+<div class="row"><span>EXPERIENCE</span><b id="xp">0 / 100</b></div>
+<div class="bar"><div class="fill" id="bar"></div></div>
+</div>
+
+<div class="card">
+<h2>📊 PLAYER STATS</h2>
+<div class="row stat">Strength <b id="str">10</b></div>
+<div class="row stat">Agility <b id="agi">10</b></div>
+<div class="row stat">Intelligence <b id="int">10</b></div>
+<div class="row stat">Vitality <b id="vit">10</b></div>
+</div>
+
+<div class="card">
+<h2>📜 DAILY QUESTS</h2>
+<p class="sub">Complete missions to earn 25 XP.</p>
+<div id="quests"></div>
+</div>
+
+<div class="card">
+<h2>🏆 ACHIEVEMENTS</h2>
+<p id="achievement">Complete your first quest!</p>
+</div>
+
+<div class="card">
+<h2>🔔 SYSTEM MESSAGE</h2>
+<p id="message">Welcome, Hunter. Your journey begins.</p>
+<button onclick="resetGame()">RESET PROGRESS</button>
+</div>
+</main>
+
+<script>
+const tasks=[
+"Study for 30 minutes",
+"Read for 20 minutes",
+"Practice a new skill",
+"Complete a personal goal"
+];
+
+let data;
+try{
+ data=JSON.parse(localStorage.getItem("shadowData"));
+}catch(e){data=null}
+
+if(!data || typeof data!=="object"){
+ data={name:"",level:1,xp:0,done:[],day:new Date().toDateString()};
+}
+if(!Array.isArray(data.done))data.done=[];
+if(!Number.isFinite(data.level)||data.level<1)data.level=1;
+if(!Number.isFinite(data.xp)||data.xp<0)data.xp=0;
+
+function save(){
+ localStorage.setItem("shadowData",JSON.stringify(data));
+}
+
+function render(){
+ document.getElementById("name").value=data.name;
+ document.getElementById("level").textContent=data.level;
+ document.getElementById("xp").textContent=data.xp+" / 100";
+ document.getElementById("bar").style.width=data.xp+"%";
+ document.getElementById("rank").textContent=
+ data.level>=20?"S":data.level>=10?"A":
+ data.level>=5?"B":"E";
+
+ ["str","agi","int","vit"].forEach(id=>{
+ document.getElementById(id).textContent=
+ 10+(data.level-1)*2;
+ });
+
+ let list=document.getElementById("quests");
+ list.innerHTML="";
+
+ tasks.forEach((task,i)=>{
+ let row=document.createElement("div");
+ row.className="quest";
+ let span=document.createElement("span");
+ span.textContent=task;
+ let btn=document.createElement("button");
+ btn.textContent=data.done.includes(i)?"DONE":"COMPLETE";
+ btn.disabled=data.done.includes(i);
+ btn.onclick=()=>complete(i);
+ row.append(span,btn);
+ list.append(row);
+ });
+
+ document.getElementById("achievement").textContent=
+ data.level>=5?"⭐ Rising Hunter":data.done.length>=1?
+ "🏅 First Quest Completed":"Complete your first quest!";
+}
+
+function complete(i){
+ if(data.done.includes(i))return;
+ data.done.push(i);
+ data.xp+=25;
+
+ if(data.xp>=100){
+ data.xp-=100;
+ data.level++;
+ document.getElementById("message").textContent=
+ "⚡ LEVEL UP! Your power increased!";
+ }else{
+ document.getElementById("message").textContent=
+ "QUEST COMPLETE! +25 XP";
+ }
+ save();
+ render();
+}
+
+document.getElementById("name").addEventListener("input",e=>{
+ data.name=e.target.value;
+ save();
+});
+
+function resetGame(){
+ if(confirm("Are you sure you want to reset?")){
+ localStorage.removeItem("shadowData");
+ location.reload();
+ }
+}
+
+if(data.day!==new Date().toDateString()){
+ data.done=[];
+ data.day=new Date().toDateString();
+ save();
+}
+render();
+</script>
+</body>
+</html>
