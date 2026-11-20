@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shadow System</title>
+<title>Shadow System - Hunter Leveling</title>
 
 <style>
 * {
@@ -13,53 +13,54 @@
 
 body {
   margin: 0;
+  padding: 18px;
   min-height: 100vh;
-  padding: 20px;
-  color: #d9f5ff;
+  color: #d9f4ff;
   background:
-    radial-gradient(ellipse at top, #102c50, #030712 65%);
+    radial-gradient(ellipse at top, #102c50, #030712 70%);
   font-family: Arial, sans-serif;
 }
 
 .system {
-  max-width: 700px;
+  max-width: 720px;
   margin: auto;
 }
 
 .header {
   text-align: center;
-  padding: 25px 10px;
+  padding: 25px 12px;
+  background: #07182cdd;
   border: 1px solid #168cff;
-  background: #07182cbb;
-  box-shadow: 0 0 25px #007bff55;
   border-radius: 14px;
+  box-shadow: 0 0 25px #007bff55;
 }
 
 .header h1 {
   color: #55caff;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   text-shadow: 0 0 15px #008cff;
 }
 
-.status {
+.online {
   color: #54ffb0;
-  letter-spacing: 3px;
   font-size: 12px;
+  letter-spacing: 3px;
 }
 
 .panel {
   margin-top: 18px;
-  padding: 20px;
-  background: linear-gradient(135deg,#0c2038dd,#07101fdd);
+  padding: 18px;
+  background: linear-gradient(135deg,#0c2038ee,#07101fee);
   border: 1px solid #176cb5;
   border-radius: 12px;
   box-shadow: 0 0 15px #006eff22;
 }
 
-.panel h2 {
+h2 {
   color: #51caff;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: 2px;
+  margin-top: 0;
 }
 
 input {
@@ -73,19 +74,25 @@ input {
 }
 
 .rank {
-  color: #ffe16a;
   font-size: 28px;
   font-weight: bold;
+  color: #ffe16a;
   text-shadow: 0 0 15px #ffbd36;
 }
 
 .level {
-  font-size: 22px;
+  font-size: 25px;
   color: #58d9ff;
+  margin: 10px 0;
+}
+
+.muted {
+  color: #91abc3;
+  font-size: 13px;
 }
 
 .bar {
-  height: 12px;
+  height: 13px;
   background: #14283d;
   border-radius: 20px;
   overflow: hidden;
@@ -107,32 +114,42 @@ input {
 }
 
 .stat {
-  padding: 15px;
+  padding: 14px;
   background: #0a1b30;
   border: 1px solid #174b78;
   border-radius: 9px;
 }
 
-.stat strong {
+.stat-name {
+  color: #8db7d5;
+  font-size: 12px;
+}
+
+.stat-value {
   color: #65d8ff;
-  font-size: 22px;
+  font-size: 25px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.stat button {
+  padding: 8px;
+  margin-top: 4px;
 }
 
 button {
-  width: 100%;
-  padding: 13px;
-  margin-top: 10px;
+  padding: 12px;
   color: white;
   background: linear-gradient(90deg,#0754a4,#008bce);
   border: 1px solid #55caff;
   border-radius: 7px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 12px #008cff55;
 }
 
-button:active {
-  transform: scale(.97);
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
 }
 
 .quest {
@@ -147,26 +164,39 @@ button:active {
   border-radius: 8px;
 }
 
-.quest button {
-  width: auto;
-  min-width: 90px;
-  margin: 0;
+.quest span {
+  font-size: 13px;
 }
 
-.done {
-  color: #5affb0;
+.quest button {
+  min-width: 105px;
+  font-size: 11px;
+}
+
+.quest.done {
   border-color: #26c985;
+  color: #5affb0;
 }
 
 .notification {
   text-align: center;
   color: #66dfff;
-  animation: glow 2s infinite alternate;
+  text-shadow: 0 0 12px #00aaff;
+  line-height: 1.6;
+  min-height: 25px;
 }
 
-@keyframes glow {
-  from { text-shadow: 0 0 5px #00aaff; }
-  to { text-shadow: 0 0 20px #00cfff; }
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #18334b;
+  font-size: 13px;
+}
+
+.info-row strong {
+  color: #60d8ff;
 }
 
 .footer {
@@ -175,64 +205,236 @@ button:active {
   color: #527b9c;
   font-size: 11px;
 }
+
+.reset {
+  width: 100%;
+  background: #641b2b;
+  border-color: #ff647d;
+  margin-top: 12px;
+}
+
+@keyframes pulse {
+  0% { opacity: .7; }
+  100% { opacity: 1; }
+}
+
+.online {
+  animation: pulse 1.5s infinite alternate;
+}
+
+@media(max-width:400px) {
+  body { padding: 10px; }
+  .quest { align-items: flex-start; }
+  .quest button { min-width: 90px; }
+}
 </style>
 </head>
 
 <body>
 <div class="system">
 
-  <div class="header">
-    <div class="status">● SYSTEM ONLINE</div>
+  <header class="header">
+    <div class="online">● SYSTEM ONLINE</div>
     <h1>SHADOW SYSTEM</h1>
-    <p>THE PLAYER HAS AWAKENED</p>
-  </div>
+    <p>HUNTER LEVELING PROGRAM</p>
+  </header>
 
-  <div class="panel">
+  <section class="panel">
     <h2>PLAYER PROFILE</h2>
-    <input id="playerName" placeholder="Enter your hunter name">
-    <p>PLAYER RANK</p>
+    <input id="playerName" maxlength="30"
+      placeholder="Enter your hunter name">
+
+    <p class="muted">CURRENT HUNTER RANK</p>
     <div class="rank" id="rank">E-RANK</div>
-    <div class="level">LEVEL <span id="level">1</span></div>
-    <p>EXPERIENCE: <span id="xp">0</span> / 100 XP</p>
-    <div class="bar"><div class="fill" id="xpBar"></div></div>
-  </div>
 
-  <div class="panel">
-    <h2>PLAYER STATUS</h2>
-    <div class="stats">
-      <div class="stat">STRENGTH<br><strong id="str">10</strong></div>
-      <div class="stat">AGILITY<br><strong id="agi">10</strong></div>
-      <div class="stat">INTELLIGENCE<br><strong id="intel">10</strong></div>
-      <div class="stat">VITALITY<br><strong id="vit">10</strong></div>
+    <div class="level">
+      LEVEL <span id="level">1</span>
     </div>
-  </div>
 
-  <div class="panel">
+    <div class="info-row">
+      <span>EXPERIENCE</span>
+      <strong id="xpText">0 / 100 XP</strong>
+    </div>
+
+    <div class="bar">
+      <div class="fill" id="xpBar"></div>
+    </div>
+
+    <div class="info-row">
+      <span>TOTAL XP EARNED</span>
+      <strong id="totalXp">0</strong>
+    </div>
+
+    <div class="info-row">
+      <span>SKILL POINTS AVAILABLE</span>
+      <strong id="skillPoints">0</strong>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>HUNTER STATUS</h2>
+    <p class="muted">Use your skill points to improve your abilities.</p>
+
+    <div class="stats">
+
+      <div class="stat">
+        <div class="stat-name">STRENGTH</div>
+        <div class="stat-value" id="str">10</div>
+        <button onclick="upgradeStat(0)">+ UPGRADE</button>
+      </div>
+
+      <div class="stat">
+        <div class="stat-name">AGILITY</div>
+        <div class="stat-value" id="agi">10</div>
+        <button onclick="upgradeStat(1)">+ UPGRADE</button>
+      </div>
+
+      <div class="stat">
+        <div class="stat-name">INTELLIGENCE</div>
+        <div class="stat-value" id="intel">10</div>
+        <button onclick="upgradeStat(2)">+ UPGRADE</button>
+      </div>
+
+      <div class="stat">
+        <div class="stat-name">VITALITY</div>
+        <div class="stat-value" id="vit">10</div>
+        <button onclick="upgradeStat(3)">+ UPGRADE</button>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>RANK PROGRESSION</h2>
+
+    <div class="info-row">
+      <span>E-RANK</span><strong>LEVEL 1+</strong>
+    </div>
+    <div class="info-row">
+      <span>D-RANK</span><strong>LEVEL 5+</strong>
+    </div>
+    <div class="info-row">
+      <span>C-RANK</span><strong>LEVEL 10+</strong>
+    </div>
+    <div class="info-row">
+      <span>B-RANK</span><strong>LEVEL 15+</strong>
+    </div>
+    <div class="info-row">
+      <span>A-RANK</span><strong>LEVEL 20+</strong>
+    </div>
+    <div class="info-row">
+      <span>S-RANK</span><strong>LEVEL 30+</strong>
+    </div>
+  </section>
+
+  <section class="panel">
     <h2>DAILY QUESTS</h2>
+    <p class="muted">Complete each mission to earn 25 XP.</p>
     <div id="quests"></div>
-  </div>
+    <div class="info-row">
+      <span>QUESTS COMPLETED TODAY</span>
+      <strong id="questCount">0 / 4</strong>
+    </div>
+  </section>
 
-  <div class="panel">
-    <h2>SYSTEM MESSAGE</h2>
+  <section class="panel">
+    <h2>SYSTEM NOTIFICATION</h2>
     <p class="notification" id="message">
-      Welcome, Player. Your journey begins now.
+      Welcome, Hunter. Your journey begins now.
     </p>
-    <button onclick="resetSystem()">RESET SYSTEM</button>
-  </div>
+    <button style="width:100%" onclick="showStatus()">
+      CHECK SYSTEM STATUS
+    </button>
+  </section>
+
+  <section class="panel">
+    <h2>LEVELING RULES</h2>
+    <p class="muted">
+      XP required for next level = 100 + (Current Level - 1) × 25.
+    </p>
+    <p class="muted">
+      Every level-up grants 3 skill points. Every 5 levels
+      unlocks a rank evaluation milestone.
+    </p>
+    <button class="reset" onclick="resetSystem()">
+      RESET ALL PROGRESS
+    </button>
+  </section>
 
   <div class="footer">
-    SHADOW SYSTEM // PLAYER DEVELOPMENT PROGRAM
+    SHADOW SYSTEM // HUNTER DEVELOPMENT PROGRAM
   </div>
+
 </div>
 
 <script>
-let data = JSON.parse(localStorage.getItem("shadowData")) || {
-  name: "",
-  level: 1,
-  xp: 0,
-  stats: [10,10,10,10],
-  completed: []
-};
+const STORAGE_KEY = "shadowData";
+
+function getToday() {
+  const d = new Date();
+  return d.getFullYear() + "-" +
+    String(d.getMonth()+1).padStart(2,"0") + "-" +
+    String(d.getDate()).padStart(2,"0");
+}
+
+function defaultData() {
+  return {
+    name: "",
+    level: 1,
+    xp: 0,
+    totalXp: 0,
+    skillPoints: 0,
+    stats: [10,10,10,10],
+    completed: [],
+    questDate: getToday()
+  };
+}
+
+function loadData() {
+  try {
+    const old = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (!old || typeof old !== "object") return defaultData();
+
+    const base = defaultData();
+
+    base.name = typeof old.name === "string" ? old.name : "";
+    base.level = Math.max(1, Number(old.level) || 1);
+    base.xp = Math.max(0, Number(old.xp) || 0);
+    base.totalXp = Math.max(
+      0, Number(old.totalXp) ||
+      ((base.level - 1) * 100 + base.xp)
+    );
+
+    base.skillPoints = Math.max(
+      0, Number(old.skillPoints) || 0
+    );
+
+    if (Array.isArray(old.stats) && old.stats.length === 4) {
+      base.stats = old.stats.map(n =>
+        Math.max(0, Number(n) || 0)
+      );
+    }
+
+    base.completed = Array.isArray(old.completed)
+      ? old.completed.filter(i =>
+          Number.isInteger(i) && i >= 0 && i < 4
+        )
+      : [];
+
+    base.questDate = old.questDate || "";
+
+    if (base.questDate !== getToday()) {
+      base.completed = [];
+      base.questDate = getToday();
+    }
+
+    return base;
+  } catch (error) {
+    return defaultData();
+  }
+}
+
+let data = loadData();
 
 const missions = [
   "Complete your morning routine",
@@ -241,87 +443,177 @@ const missions = [
   "Complete a personal goal"
 ];
 
+function xpNeeded() {
+  return 100 + (data.level - 1) * 25;
+}
+
+function getRank() {
+  if (data.level >= 30) return "S-RANK";
+  if (data.level >= 20) return "A-RANK";
+  if (data.level >= 15) return "B-RANK";
+  if (data.level >= 10) return "C-RANK";
+  if (data.level >= 5) return "D-RANK";
+  return "E-RANK";
+}
+
 function save() {
-  localStorage.setItem("shadowData", JSON.stringify(data));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
 function render() {
   document.getElementById("playerName").value = data.name;
+
   document.getElementById("level").textContent = data.level;
-  document.getElementById("xp").textContent = data.xp;
-  document.getElementById("xpBar").style.width = data.xp + "%";
+  document.getElementById("rank").textContent = getRank();
 
-  document.getElementById("rank").textContent =
-    data.level >= 30 ? "S-RANK" :
-    data.level >= 15 ? "A-RANK" :
-    data.level >= 7 ? "B-RANK" : "E-RANK";
+  document.getElementById("xpText").textContent =
+    data.xp + " / " + xpNeeded() + " XP";
 
-  ["str","agi","intel","vit"].forEach((id,i) => {
-    document.getElementById(id).textContent = data.stats[i];
+  document.getElementById("xpBar").style.width =
+    Math.min(100, data.xp / xpNeeded() * 100) + "%";
+
+  document.getElementById("totalXp").textContent =
+    data.totalXp;
+
+  document.getElementById("skillPoints").textContent =
+    data.skillPoints;
+
+  const statIds = ["str","agi","intel","vit"];
+
+  statIds.forEach((id,i) => {
+    document.getElementById(id).textContent =
+      data.stats[i];
   });
 
-  document.getElementById("quests").innerHTML = "";
+  document.querySelectorAll(".stat button").forEach(button => {
+    button.disabled = data.skillPoints < 1;
+  });
+
+  const questBox = document.getElementById("quests");
+  questBox.innerHTML = "";
 
   missions.forEach((mission,i) => {
-    let done = data.completed.includes(i);
-    let item = document.createElement("div");
+    const done = data.completed.includes(i);
+
+    const item = document.createElement("div");
     item.className = "quest" + (done ? " done" : "");
 
-    let label = document.createElement("span");
+    const label = document.createElement("span");
     label.textContent = mission;
 
-    let button = document.createElement("button");
+    const button = document.createElement("button");
     button.textContent = done ? "COMPLETED" : "CLAIM +25 XP";
     button.disabled = done;
     button.onclick = () => completeQuest(i);
 
     item.append(label,button);
-    document.getElementById("quests").appendChild(item);
+    questBox.appendChild(item);
   });
+
+  document.getElementById("questCount").textContent =
+    data.completed.length + " / 4";
+}
+
+function addXP(amount) {
+  data.xp += amount;
+  data.totalXp += amount;
+
+  let levelsGained = 0;
+
+  while (data.xp >= xpNeeded()) {
+    data.xp -= xpNeeded();
+    data.level++;
+    data.skillPoints += 3;
+    levelsGained++;
+  }
+
+  if (levelsGained > 0) {
+    if (data.level % 5 === 0) {
+      document.getElementById("message").textContent =
+        "RANK EVALUATION MILESTONE REACHED! CURRENT RANK: " +
+        getRank();
+    } else if (data.level % 10 === 0) {
+      document.getElementById("message").textContent =
+        "SPECIAL TITLE MILESTONE UNLOCKED!";
+    } else {
+      document.getElementById("message").textContent =
+        "LEVEL UP! " + levelsGained +
+        " LEVEL(S) GAINED. +3 SKILL POINTS PER LEVEL!";
+    }
+  }
 }
 
 function completeQuest(i) {
   if (data.completed.includes(i)) return;
 
   data.completed.push(i);
-  data.xp += 25;
+  addXP(25);
 
-  if (data.xp >= 100) {
-    data.xp -= 100;
-    data.level++;
-    data.stats = data.stats.map(n => n + 2);
+  if (data.level === 1 && data.xp < xpNeeded()) {
     document.getElementById("message").textContent =
-      "LEVEL UP! YOUR STATS HAVE INCREASED.";
-  } else {
-    document.getElementById("message").textContent =
-      "QUEST COMPLETE. EXPERIENCE ACQUIRED.";
+      "QUEST COMPLETE. +25 XP ACQUIRED.";
   }
 
   save();
   render();
 }
 
-document.getElementById("playerName").addEventListener("input",e => {
-  data.name = e.target.value;
-  save();
-});
+function upgradeStat(index) {
+  if (data.skillPoints < 1) {
+    document.getElementById("message").textContent =
+      "NOT ENOUGH SKILL POINTS!";
+    return;
+  }
 
-function resetSystem() {
-  if (!confirm("Reset all player progress?")) return;
+  data.skillPoints--;
+  data.stats[index]++;
 
-  localStorage.removeItem("shadowData");
-  data = {
-    name: "",
-    level: 1,
-    xp: 0,
-    stats: [10,10,10,10],
-    completed: []
-  };
+  const names = [
+    "STRENGTH",
+    "AGILITY",
+    "INTELLIGENCE",
+    "VITALITY"
+  ];
+
   document.getElementById("message").textContent =
-    "SYSTEM RESET COMPLETE.";
+    names[index] + " UPGRADED!";
+
+  save();
   render();
 }
 
+function showStatus() {
+  document.getElementById("message").textContent =
+    "SYSTEM ONLINE. LEVEL " + data.level +
+    " | " + getRank() +
+    " | " + data.skillPoints + " SKILL POINTS AVAILABLE.";
+
+  render();
+}
+
+document.getElementById("playerName")
+  .addEventListener("input", function(event) {
+    data.name = event.target.value;
+    save();
+  });
+
+function resetSystem() {
+  const confirmReset = confirm(
+    "Are you sure? This will delete all player progress."
+  );
+
+  if (!confirmReset) return;
+
+  data = defaultData();
+  save();
+
+  document.getElementById("message").textContent =
+    "SYSTEM RESET COMPLETE. NEW JOURNEY STARTED.";
+
+  render();
+}
+
+save();
 render();
 </script>
 </body>
