@@ -986,100 +986,6 @@ function resetSystem(){
 updateVisit();
 save();
 render();
-
-</script>
-</body>
-</html>
-const canUnlock=levelReady&&!unlocked&&data.skillPoints>=3;
-
-  const card=document.createElement("div");
-  card.className="skill "+(unlocked?"unlocked":"locked");
-
-  const icon=document.createElement("div");
-  icon.className="skill-icon";
-  icon.textContent=skill.icon;
-
-  const title=document.createElement("h3");
-  title.textContent=skill.name;
-
-  const desc=document.createElement("p");
-  desc.textContent=skill.desc;
-
-  const req=document.createElement("small");
-  req.textContent="Required level: "+skill.level+" | Cost: 3 points";
-
-  const button=document.createElement("button");
-  button.textContent=unlocked?"UNLOCKED":!levelReady?"LEVEL LOCKED":"UNLOCK SKILL";
-  button.disabled=!canUnlock;
-  button.onclick=()=>unlockSkill(i);
-
-  card.append(icon,title,desc,req,button);
-  box.appendChild(card);
- });
-}
-
-function unlockSkill(i){
- const skill=skills[i];
- if(data.abilities.includes(i)||data.level<skill.level||data.skillPoints<3)return;
-
- data.skillPoints-=3;
- data.abilities.push(i);
- notify("ABILITY UNLOCKED: "+skill.name+"!");
- save();
- render();
-}
-
-function renderQuests(){
- const box=document.getElementById("quests");
- box.innerHTML="";
-
- missions.forEach((mission,i)=>{
-  const done=data.completed.includes(i);
-  const item=document.createElement("div");
-  item.className="quest"+(done?" done":"");
-
-  const label=document.createElement("span");
-  label.textContent=mission;
-
-  const button=document.createElement("button");
-  button.textContent=done?"COMPLETED":"CLAIM +25 XP";
-  button.disabled=done;
-  button.onclick=()=>completeQuest(i);
-
-  item.append(label,button);
-  box.appendChild(item);
- });
-
- document.getElementById("questCount").textContent=
-  data.completed.length+" / 4";
-}
-
-function renderAchievements(){
- const box=document.getElementById("achievements");
- box.innerHTML="";
-
- achievements.forEach(a=>{
-  const unlocked=a.test();
-  const card=document.createElement("div");
-  card.className="achievement";
-
-  const title=document.createElement("strong");
-  title.textContent=(unlocked?"🏆 ":"🔒 ")+a.name;
-
-  const desc=document.createElement("span");
-  desc.textContent=a.desc;
-
-  const status=document.createElement("p");
-  status.className="muted";
-  status.textContent=unlocked?"UNLOCKED":"LOCKED";
-
-  card.append(title,desc,status);
-  box.appendChild(card);
- });
-}
-
-function addXP(amount){
- data.xp+=amount;
  data.totalXp+=amount;
 
  let gained=0;
@@ -1112,3 +1018,7 @@ render();
 </script>
 </body>
 </html>
+
+</script>
+</body>
+</
