@@ -1,200 +1,407 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#070914">
-<title>SHADOW SYSTEM | Hunter OS</title>
+<title>SHADOW SYSTEM | HUNTER OS</title>
 <style>
-:root{--bg:#070914;--panel:#101528;--panel2:#151d35;--line:rgba(117,145,255,.2);--blue:#55c8ff;--purple:#a78bfa;--text:#eef3ff;--muted:#98a6c7;--good:#63e6be;--gold:#ffd166;--danger:#ff6b8a;--radius:18px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 20% 0%,#17214a 0,transparent 38%),radial-gradient(ellipse at 90% 20%,#29164b 0,transparent 32%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
-button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1200px;margin:auto;padding:16px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 2px 18px;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:2px}.brand-mark{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#1d9fe8,#7547d9);box-shadow:0 0 25px #398dff66;font-size:22px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:3px;margin-top:3px}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:12px;padding:10px 13px;color:var(--text);background:#151d35}.btn.primary{background:linear-gradient(110deg,#167dc4,#704bd2);border:0;box-shadow:0 8px 25px #3b74e455}.btn:active{transform:scale(.97)}.nav{display:flex;gap:7px;overflow:auto;padding:14px 0}.nav button{white-space:nowrap;background:transparent;border:1px solid transparent;color:var(--muted);padding:9px 13px;border-radius:12px}.nav button.active,.nav button:hover{color:white;background:#182342;border-color:var(--line)}.grid{display:grid;grid-template-columns:1.35fr .85fr;gap:16px}.panel{background:linear-gradient(145deg,#11182bdf,#0c1121f2);border:1px solid var(--line);border-radius:var(--radius);padding:17px;box-shadow:0 15px 40px #0004;min-width:0}.panel h2,.panel h3{margin:0 0 12px}.muted{color:var(--muted)}.tiny{font-size:12px;color:var(--muted)}.hero{position:relative;overflow:hidden;min-height:275px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;background:linear-gradient(110deg,#0b1225 0%,#101c3c 55%,#28164b 100%)}.hero:before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:#2c9cff24;filter:blur(25px);right:12%;top:5%}.hero-copy{position:relative;z-index:2}.eyebrow{font-size:11px;letter-spacing:3px;color:var(--blue);font-weight:800}.hero h1{font-size:clamp(27px,5vw,48px);line-height:1.04;margin:12px 0}.hero h1 span{color:var(--blue);text-shadow:0 0 20px #3abaff88}.hero-art{height:245px;position:relative;display:grid;place-items:center}.orb{position:absolute;width:185px;height:185px;border-radius:50%;background:radial-gradient(circle,#7b55ff55,#168de822 48%,transparent 70%);animation:pulse 3s infinite}.hunter-silhouette{position:relative;font-size:120px;filter:drop-shadow(0 0 18px #56bfff);animation:float 4s ease-in-out infinite}.hero-tag{display:inline-flex;gap:7px;align-items:center;padding:7px 10px;border:1px solid #65cfff55;border-radius:99px;background:#0a1937aa;font-size:11px;color:#a9e6ff}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.stat{background:#121a30;border:1px solid var(--line);border-radius:14px;padding:12px}.stat strong{font-size:22px;display:block}.stat span{font-size:10px;color:var(--muted);letter-spacing:1px}.bar{height:9px;background:#252e48;border-radius:99px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:99px;transition:width .5s}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.section{display:none}.section.active{display:block;animation:fade .25s ease}.section-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.mission,.item,.achievement,.skill,.model{border:1px solid var(--line);border-radius:15px;background:#121a30;padding:13px}.mission{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:9px 0}.mission p{margin:5px 0 0;font-size:12px;color:var(--muted)}.pill{font-size:10px;padding:5px 8px;border-radius:99px;background:#203456;color:#9de2ff;white-space:nowrap}.complete{border-color:#3b9f84;background:#112b2a}.complete .pill{background:#174b3b;color:#8ef0c8}.xp{color:var(--gold);font-size:12px;font-weight:800}.models{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.model{padding:0;overflow:hidden}.model img{width:100%;height:150px;object-fit:cover;display:block;filter:saturate(.8)}.model-body{padding:11px}.model-body strong{display:block}.model-body p{font-size:11px;color:var(--muted);margin:5px 0 10px}.model.selected{outline:2px solid var(--blue);box-shadow:0 0 22px #43baff33}.model button{width:100%}.rank{font-size:28px;font-weight:900;background:linear-gradient(90deg,#6dd5ff,#bd9aff);color:transparent;background-clip:text}.big-number{font-size:35px;font-weight:900}.list{display:grid;gap:9px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.field{width:100%;padding:11px 12px;border-radius:11px;background:#080e1d;border:1px solid var(--line);color:white;margin:6px 0}.field:focus{outline:1px solid var(--blue)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#17274a;border:1px solid #65cfff77;padding:12px 18px;border-radius:14px;box-shadow:0 10px 35px #0008;z-index:50;transition:.3s}.toast.show{opacity:1;transform:translate(-50%,0)}.modal{position:fixed;inset:0;background:#030510d9;display:none;place-items:center;padding:18px;z-index:40}.modal.show{display:grid}.modal-card{width:min(440px,100%);background:#111a31;border:1px solid var(--line);border-radius:20px;padding:20px}.modal-card h2{margin-top:0}.glow{animation:glow 2s infinite}.achievement.locked{opacity:.55}.emoji{font-size:22px}.footer{text-align:center;color:#657293;font-size:11px;padding:28px 0 10px}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}@keyframes pulse{50%{transform:scale(1.12);opacity:.7}}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}@keyframes glow{50%{box-shadow:0 0 25px #5bc9ff77}}@keyframes levelup{0%{transform:scale(.7);opacity:0}50%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
-@media(max-width:760px){.grid,.hero{grid-template-columns:1fr}.hero-art{height:165px;grid-row:1}.hunter-silhouette{font-size:95px}.stats{grid-template-columns:repeat(2,1fr)}.two,.section-grid{grid-template-columns:1fr}.models{grid-template-columns:repeat(2,1fr)}.app{padding:12px}.top{align-items:flex-start}.brand{font-size:13px}}
-@media(max-width:390px){.models{grid-template-columns:1fr}.top-actions .btn{padding:8px;font-size:11px}}
+*{box-sizing:border-box}
+body{margin:0;background:#070914;color:#eaf3ff;font-family:Arial,sans-serif}
+header{padding:18px;background:#10172a;border-bottom:1px solid #243a62;text-align:center}
+h1{color:#65caff;letter-spacing:4px;margin:0}
+.sub{color:#849bb9;font-size:11px;margin-top:7px}
+nav{display:flex;overflow:auto;gap:8px;padding:12px;background:#0b1020}
+button{background:#14233b;color:#bce8ff;border:1px solid #31527c;padding:11px 14px;border-radius:9px;cursor:pointer}
+button.active,button:hover{background:#17618a;color:white}
+main{max-width:900px;margin:auto;padding:14px}
+.panel{background:#10182b;border:1px solid #253c60;border-radius:14px;padding:16px;margin-bottom:14px}
+h2{font-size:17px;color:#65caff}
+h3{font-size:14px;color:#b4dfff}
+.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:#0b1222;border:1px solid #243959;border-radius:10px;padding:12px}
+.value{font-size:23px;color:#69d5ff;font-weight:bold}
+.small{font-size:12px;color:#91a6c4}
+.bar{height:9px;background:#26344d;border-radius:20px;overflow:hidden;margin-top:7px}
+.fill{height:100%;background:linear-gradient(90deg,#1688d4,#7bdaff);width:0%}
+#world{height:300px;position:relative;overflow:hidden;border-radius:13px;background:radial-gradient(ellipse at 50% 80%,#193c64,#10162e 50%,#050812);perspective:650px}
+#world canvas{width:100%;height:100%;display:block}
+.sceneLabel{position:absolute;top:12px;left:12px;background:#050914b9;padding:9px;border-radius:7px;font-size:12px}
+#character{position:absolute;bottom:37px;left:50%;transform:translateX(-50%);font-size:65px;filter:drop-shadow(0 0 16px #43aaff);animation:float 2s infinite ease-in-out;pointer-events:none}
+#companion{position:absolute;bottom:48px;left:25%;font-size:39px;filter:drop-shadow(0 0 15px #945cff);animation:float 2.5s infinite ease-in-out}
+@keyframes float{50%{translate:0 -12px}}
+.worldControls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tabs{display:none}
+.tabs.show{display:block}
+.mission{background:#0b1425;padding:13px;border-radius:10px;margin:9px 0;border:1px solid #263d5d}
+.reward{color:#68d7ff;font-size:12px}
+#log{height:140px;overflow:auto;font-size:12px;color:#b9d4ec;background:#070d19;padding:12px;border-radius:9px}
+.item{display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid #25334a}
+footer{text-align:center;color:#647b9b;font-size:11px;padding:20px}
+input{background:#0a1221;color:white;border:1px solid #365174;padding:10px;border-radius:8px;width:100%}
 </style>
 </head>
 <body>
-<div class="app">
-<header class="top">
-  <div class="brand"><div class="brand-mark">影</div><div>SHADOW SYSTEM<small>HUNTER OPERATING SYSTEM</small></div></div>
-  <div class="top-actions"><button class="btn" id="soundBtn" onclick="toggleSound()">🔊 Sound: ON</button><button class="btn" onclick="openSettings()">⚙️ Settings</button></div>
+
+<header>
+<h1>SHADOW SYSTEM</h1>
+<div class="sub">HUNTER OS // AWAKENING PROTOCOL</div>
 </header>
-<nav class="nav" id="nav">
-  <button class="active" data-tab="dashboard">🏠 Dashboard</button><button data-tab="missions">📜 Quests</button><button data-tab="hunter">🧑‍🚀 Hunter</button><button data-tab="skills">⚡ Skills</button><button data-tab="inventory">🎒 Inventory</button><button data-tab="achievements">🏆 Achievements</button><button data-tab="dungeons">🏰 Dungeons</button>
+
+<nav>
+<button class="active" onclick="showTab('home',this)">HOME</button>
+<button onclick="showTab('worldTab',this)">WORLD</button>
+<button onclick="showTab('story',this)">STORY</button>
+<button onclick="showTab('missions',this)">MISSIONS</button>
+<button onclick="showTab('inventory',this)">INVENTORY</button>
+<button onclick="showTab('profile',this)">PROFILE</button>
 </nav>
 
 <main>
-<section class="section active" id="dashboard">
-  <div class="panel hero">
-    <div class="hero-copy"><div class="eyebrow">SYSTEM ONLINE // PLAYER DETECTED</div><h1>ARISE,<br><span id="heroName">HUNTER</span></h1><p class="muted">Your next evolution begins with one quest.</p><div class="hero-tag">✦ <span id="rankLabel">E-RANK HUNTER</span> <span>•</span> <span id="levelLabel">LEVEL 1</span></div><div style="margin-top:17px"><div class="row tiny"><span>EXPERIENCE</span><b id="xpText">0 / 100 XP</b></div><div class="bar"><i id="xpBar"></i></div></div><button class="btn primary" onclick="showTab('missions')">VIEW ACTIVE QUESTS →</button></div>
-    <div class="hero-art"><div class="orb"></div><div class="hunter-silhouette" id="heroAvatar">🧙🏻‍♂️</div></div>
-  </div>
-  <div class="stats">
-    <div class="stat"><span>LEVEL</span><strong id="statLevel">1</strong><small class="muted">Current level</small></div><div class="stat"><span>TOTAL XP</span><strong id="statXp">0</strong><small class="muted">Lifetime XP</small></div><div class="stat"><span>SKILL POINTS</span><strong id="statSP">0</strong><small class="muted">Available</small></div><div class="stat"><span>STREAK 🔥</span><strong id="statStreak">0</strong><small class="muted">Active days</small></div>
-  </div>
-  <div class="two">
-    <div class="panel"><div class="row"><h3>📌 Today's Quests</h3><button class="btn" onclick="showTab('missions')">All quests</button></div><div id="dashMissions"></div></div>
-    <div class="panel"><h3>📊 Hunter Attributes</h3><div id="dashStats"></div></div>
-  </div>
-  <div class="panel" style="margin-top:16px"><div class="row"><div><div class="eyebrow">SYSTEM MESSAGE</div><h3 style="margin:5px 0">Your journey is just beginning.</h3><p class="muted" style="margin:0;font-size:13px">Complete quests, earn XP, and develop your hunter attributes.</p></div><div class="emoji">🌌</div></div></div>
-</section>
 
-<section class="section" id="missions">
-  <div class="row"><div><div class="eyebrow">DAILY PROTOCOL</div><h2>📜 Quest Board</h2></div><button class="btn primary" onclick="addMission()">＋ Custom quest</button></div>
-  <div class="section-grid" style="margin-top:14px"><div class="panel"><h3>☀️ Daily Quests</h3><div id="dailyList"></div></div><div class="panel"><h3>🗓️ Weekly Quests</h3><div id="weeklyList"></div></div></div>
-  <div class="panel" style="margin-top:14px"><h3>✍️ Your Custom Quests</h3><div id="customList"></div></div>
-</section>
-
-<section class="section" id="hunter">
-  <div class="eyebrow">PLAYER PROFILE</div><h2>🧑‍🚀 Hunter Profile</h2>
-  <div class="section-grid">
-    <div class="panel"><div class="row"><h3>Hunter identity</h3><span class="pill" id="profileRank">E-RANK</span></div><div class="hero-art" style="height:165px"><div class="orb"></div><div class="hunter-silhouette" id="profileAvatar">🧙🏻‍♂️</div></div><label class="tiny">HUNTER NAME</label><input class="field" id="nameInput" maxlength="24" placeholder="Enter hunter name"><button class="btn primary" onclick="saveName()">Save identity</button><p class="tiny">Your chosen identity is stored on this device.</p></div>
-    <div class="panel"><h3>🎭 Hunter models</h3><p class="tiny">Choose an avatar style for your profile.</p><div class="models" id="modelList"></div></div>
-  </div>
-  <div class="panel" style="margin-top:14px"><h3>📈 Attribute allocation</h3><p class="tiny">Spend skill points to develop your hunter. Attributes are game stats, not real-world measurements.</p><div id="hunterStats"></div></div>
-</section>
-
-<section class="section" id="skills">
-  <div class="eyebrow">ABILITY DEVELOPMENT</div><h2>⚡ Skill Tree</h2><div class="section-grid" id="skillList"></div>
-</section>
-
-<section class="section" id="inventory">
-  <div class="eyebrow">PLAYER STORAGE</div><h2>🎒 Inventory & Equipment</h2><div class="section-grid"><div class="panel"><h3>🧰 Equipment slots</h3><div id="equipmentList"></div></div><div class="panel"><h3>💎 Owned items</h3><div id="itemsList"></div></div></div>
-</section>
-
-<section class="section" id="achievements">
-  <div class="eyebrow">MILESTONES</div><h2>🏆 Achievements & Titles</h2><div class="section-grid" id="achievementList"></div><div class="panel" style="margin-top:14px"><h3>📖 Hunter activity log</h3><div id="activityLog" class="list"></div></div>
-</section>
-
-<section class="section" id="dungeons">
-  <div class="eyebrow">GATE DETECTED</div><h2>🏰 Dungeon Challenges</h2><p class="muted">Complete a challenge to earn bonus XP. These are fictional, in-app quests.</p><div class="section-grid" id="dungeonList"></div>
-</section>
-</main>
-<div class="footer">SHADOW SYSTEM // HUNTER OS • Progress is saved locally on this device</div>
+<section id="home" class="tabs show">
+<div class="panel">
+<h2>PLAYER STATUS</h2>
+<div class="statgrid">
+<div class="stat"><div class="small">HUNTER LEVEL</div><div class="value" id="level">1</div></div>
+<div class="stat"><div class="small">RANK</div><div class="value" id="rank">E</div></div>
+<div class="stat"><div class="small">EXPERIENCE</div><div class="value" id="xp">0</div></div>
+<div class="stat"><div class="small">SHADOWS</div><div class="value" id="shadows">0</div></div>
+</div>
+<h3>XP PROGRESS</h3>
+<div class="bar"><div class="fill" id="xpbar"></div></div>
+<p class="small" id="xptext">0 / 100 XP</p>
 </div>
 
-<div class="toast" id="toast">SYSTEM MESSAGE</div>
-<div class="modal" id="modal"><div class="modal-card" id="modalContent"></div></div>
+<div class="panel">
+<h2>SYSTEM NOTIFICATION</h2>
+<p id="notification">[SYSTEM] Welcome, Hunter. Your awakening has begun.</p>
+<button onclick="dailyReward()">CLAIM DAILY REWARD</button>
+</div>
+
+<div class="panel">
+<h2>QUICK ACTIONS</h2>
+<button onclick="showTab('worldTab')">ENTER WORLD</button>
+<button onclick="showTab('missions')">VIEW MISSIONS</button>
+<button onclick="showTab('story')">CONTINUE STORY</button>
+</div>
+</section>
+
+<section id="worldTab" class="tabs">
+<div class="panel">
+<h2>3D HUNTER WORLD</h2>
+<div id="world">
+<canvas id="worldCanvas"></canvas>
+<div class="sceneLabel">LOCATION: ABANDONED CITY</div>
+<div id="companion">👤</div>
+<div id="character">🧙</div>
+</div>
+<div class="worldControls">
+<button onclick="move('left')">◀ LEFT</button>
+<button onclick="move('forward')">▲ FORWARD</button>
+<button onclick="move('right')">RIGHT ▶</button>
+<button onclick="move('back')">▼ BACK</button>
+</div>
+<p class="small" id="location">Coordinates: 0, 0</p>
+<button onclick="explore()">EXPLORE AREA</button>
+<button onclick="summon()">SUMMON SHADOW</button>
+</div>
+</section>
+
+<section id="story" class="tabs">
+<div class="panel">
+<h2>THE AWAKENING</h2>
+<div class="mission">
+<h3>CHAPTER 1: THE UNKNOWN HUNTER</h3>
+<p>You wake up in a mysterious world. A strange blue window appears before you.</p>
+<button onclick="chapter(1)">BEGIN CHAPTER</button>
+</div>
+<div class="mission">
+<h3>CHAPTER 2: FIRST DUNGEON</h3>
+<p>Discover the entrance to a forgotten dungeon.</p>
+<button onclick="chapter(2)">UNLOCK CHAPTER</button>
+</div>
+<div class="mission">
+<h3>CHAPTER 3: SHADOW AWAKENING</h3>
+<p>A mysterious power waits beyond the dungeon.</p>
+<button onclick="chapter(3)">UNLOCK CHAPTER</button>
+</div>
+<div class="mission">
+<h3>CHAPTER 4: THE MONARCH'S SECRET</h3>
+<p>Discover the truth behind the System.</p>
+<button onclick="chapter(4)">UNLOCK CHAPTER</button>
+</div>
+<div class="mission">
+<h3>CHAPTER 5: THE FINAL GATE</h3>
+<p>Your final challenge awaits.</p>
+<button onclick="chapter(5)">UNLOCK CHAPTER</button>
+</div>
+<div id="storyText" class="mission">Your story begins here, Hunter.</div>
+</div>
+</section>
+
+<section id="missions" class="tabs">
+<div class="panel">
+<h2>DAILY MISSIONS</h2>
+<div id="missionList"></div>
+</div>
+<div class="panel">
+<h2>DUNGEON CHALLENGE</h2>
+<p>Enter the mysterious dungeon and test your Hunter rank.</p>
+<button onclick="dungeon()">ENTER DUNGEON</button>
+</div>
+</section>
+
+<section id="inventory" class="tabs">
+<div class="panel">
+<h2>INVENTORY</h2>
+<div id="items"></div>
+</div>
+</section>
+
+<section id="profile" class="tabs">
+<div class="panel">
+<h2>HUNTER PROFILE</h2>
+<div style="font-size:65px;text-align:center">🧙</div>
+<label>Hunter name</label>
+<input id="hunterName" placeholder="Enter hunter name">
+<button onclick="saveName()">SAVE NAME</button>
+<p class="small" id="profileName"></p>
+<h3>ATTRIBUTES</h3>
+<div id="attributes"></div>
+</div>
+</section>
+
+<div class="panel">
+<h2>SYSTEM LOG</h2>
+<div id="log">[SYSTEM] Hunter OS initialized...</div>
+</div>
+
+</main>
+
+<footer>SHADOW SYSTEM © 2026 | HUNTER OS</footer>
 
 <script>
-"use strict";
-const SAVE_KEY="shadowData";
-const defaults={
- name:"HUNTER",level:1,xp:0,totalXp:0,skillPoints:0,
- stats:{strength:1,agility:1,vitality:1,intelligence:1,sense:1,willpower:1},
- abilities:[],equipment:{weapon:"Training Blade",armor:"Hunter Jacket",accessory:"None"},
- ownedItems:["Basic Health Potion"],completed:[],customMissions:[],completedWeekly:[],
- weekKey:"",lastVisit:"",streak:0,totalMissions:0,createdAt:Date.now(),logs:[],sound:true,
- avatar:"🧙🏻‍♂️",avatarIndex:0,titles:["New Awakening"],selectedTitle:"New Awakening",dungeons:[]
+const DEFAULT={
+ level:1,xp:0,rank:"E",shadows:0,
+ chapter:0,name:"Hunter",
+ x:0,y:0,items:["Hunter Starter Outfit"],
+ attributes:{strength:10,agility:10,intelligence:10},
+ missions:{explore:false,dungeon:false,shadow:false},
+ daily:"",
 };
-function clone(x){return JSON.parse(JSON.stringify(x))}
-function loadData(){
- let old={};try{old=JSON.parse(localStorage.getItem(SAVE_KEY)||"{}")||{}}catch(e){old={}}
- // Merge defaults without replacing any existing saved values.
- const d={...clone(defaults),...old};
- d.stats={...clone(defaults.stats),...(old.stats||{})};
- d.equipment={...clone(defaults.equipment),...(old.equipment||{})};
- ["abilities","ownedItems","completed","customMissions","completedWeekly","logs","titles","dungeons"].forEach(k=>{if(!Array.isArray(d[k]))d[k]=clone(defaults[k])});
- if(!d.name)d.name="HUNTER";if(!d.level||d.level<1)d.level=1;
- return d;
+let data;
+try{
+ data={...DEFAULT,...JSON.parse(localStorage.getItem("shadowData")||"{}")};
+ data.attributes={...DEFAULT.attributes,...(data.attributes||{})};
+ data.missions={...DEFAULT.missions,...(data.missions||{})};
+}catch(e){data={...DEFAULT};}
+
+const $=id=>document.getElementById(id);
+function save(){
+ localStorage.setItem("shadowData",JSON.stringify(data));
+ render();
 }
-let data=loadData();
-function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(data))}catch(e){toast("Storage is full. Export your progress in Settings.")}}
-function log(msg){data.logs.unshift({text:msg,time:new Date().toLocaleString()});data.logs=data.logs.slice(0,30)}
-function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2400)}
-function beep(freq=660){if(!data.sound)return;try{const c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=freq;g.gain.value=.035;o.start();o.stop(c.currentTime+.12)}catch(e){}}
-const daily=[
- {id:"d1",title:"Morning Awakening",desc:"Start your day with a planned task.",xp:25,icon:"🌅"},
- {id:"d2",title:"Knowledge Expansion",desc:"Spend 20 minutes learning something new.",xp:35,icon:"📚"},
- {id:"d3",title:"Focus Protocol",desc:"Complete one important task without distractions.",xp:30,icon:"🎯"},
- {id:"d4",title:"Consistency Check",desc:"Review your progress for today.",xp:20,icon:"🔥"}
-];
-const weekly=[
- {id:"w1",title:"Seven-Day Consistency",desc:"Complete 5 daily quests this week.",xp:100,icon:"🗓️"},
- {id:"w2",title:"Skill Builder",desc:"Unlock or upgrade one skill.",xp:80,icon:"⚡"},
- {id:"w3",title:"Hunter Discipline",desc:"Complete 10 quests in total.",xp:120,icon:"🏆"}
-];
-const models=[
- {name:"Shadow Initiate",emoji:"🧙🏻‍♂️",rank:"E-RANK",img:"https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"},
- {name:"Night Wanderer",emoji:"🥷",rank:"B-RANK",img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=600&q=80"},
- {name:"Arcane Monarch",emoji:"👑",rank:"S-RANK",img:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=600&q=80"}
-];
-const skills=[
- {id:"focus",name:"Absolute Focus",icon:"🎯",desc:"A focus-themed hunter ability.",cost:2},
- {id:"aura",name:"Mana Aura",icon:"🔮",desc:"Strengthen your magical aura.",cost:3},
- {id:"shadow",name:"Shadow Affinity",icon:"🌑",desc:"Unlock the shadow-themed title.",cost:4},
- {id:"wisdom",name:"Wisdom Boost",icon:"📘",desc:"A knowledge progression ability.",cost:2},
- {id:"monarch",name:"Monarch's Presence",icon:"👑",desc:"Unlock the Monarch profile effect.",cost:6}
-];
-const dungeons=[
- {id:"gate-e",name:"Blue Gate",rank:"E-RANK",icon:"🌌",desc:"Complete 2 daily quests.",xp:60,need:2},
- {id:"gate-c",name:"Crystal Cavern",rank:"C-RANK",icon:"💎",desc:"Complete 5 quests in total.",xp:100,need:5},
- {id:"gate-s",name:"Monarch's Trial",rank:"S-RANK",icon:"👑",desc:"Reach level 5.",xp:180,need:5}
-];
-const achievements=[
- {id:"first",name:"First Awakening",icon:"✨",desc:"Complete your first quest.",test:()=>data.totalMissions>=1},
- {id:"five",name:"Rising Hunter",icon:"⚡",desc:"Complete 5 quests.",test:()=>data.totalMissions>=5},
- {id:"level5",name:"Power Surge",icon:"🌟",desc:"Reach level 5.",test:()=>data.level>=5},
- {id:"skill",name:"Ability User",icon:"🔮",desc:"Unlock a skill.",test:()=>data.abilities.length>=1},
- {id:"streak",name:"Unbroken Will",icon:"🔥",desc:"Reach a 3-day streak.",test:()=>data.streak>=3},
- {id:"monarch",name:"Shadow Monarch",icon:"👑",desc:"Reach level 10.",test:()=>data.level>=10}
-];
-function today(){return new Date().toISOString().slice(0,10)}
-function week(){const d=new Date();const first=new Date(d);first.setDate(d.getDate()-((d.getDay()+6)%7));return first.toISOString().slice(0,10)}
-function checkDay(){
- const t=today();if(data.lastVisit!==t){const y=new Date();y.setDate(y.getDate()-1);const yesterday=y.toISOString().slice(0,10);data.streak=data.lastVisit===yesterday?(data.streak||0)+1:1;data.lastVisit=t}
- if(data.weekKey!==week()){data.weekKey=week();data.completedWeekly=[]}
+function log(msg){
+ $("log").innerHTML+="<br>"+msg;
+ $("log").scrollTop=$("log").scrollHeight;
 }
-function rank(){if(data.level>=30)return"MONARCH";if(data.level>=20)return"NATIONAL";if(data.level>=15)return"S-RANK";if(data.level>=10)return"A-RANK";if(data.level>=7)return"B-RANK";if(data.level>=4)return"C-RANK";if(data.level>=2)return"D-RANK";return"E-RANK"}
-function addXP(amount,reason){
- data.xp=(data.xp||0)+amount;data.totalXp=(data.totalXp||0)+amount;
- while(data.xp>=data.level*100){data.xp-=data.level*100;data.level++;data.skillPoints=(data.skillPoints||0)+2;log("LEVEL UP! Reached level "+data.level);toast("🌟 LEVEL UP! LEVEL "+data.level);beep(880)}
- log("+"+amount+" XP — "+reason);save();render();beep();
+function notify(msg){
+ $("notification").textContent=msg;
+ log(msg);
 }
-function isDone(id){return data.completed.includes(today()+":"+id)}
-function completeDaily(q){if(isDone(q.id))return;data.completed.push(today()+":"+q.id);data.totalMissions++;addXP(q.xp,q.title);toast("Quest complete! +"+q.xp+" XP")}
-function completeWeekly(q){if(data.completedWeekly.includes(q.id))return;data.completedWeekly.push(q.id);data.totalMissions++;addXP(q.xp,q.title)}
-function completeCustom(i){const q=data.customMissions[i];if(!q||q.done)return;q.done=true;data.totalMissions++;addXP(Number(q.xp)||25,q.title)}
-function addMission(){const title=prompt("Enter your custom quest name:");if(!title||!title.trim())return;const xp=Math.max(5,Math.min(200,Number(prompt("XP reward (5–200):","25"))||25));data.customMissions.push({title:title.trim(),desc:"Your personal quest",xp,done:false});save();render();toast("Custom quest added!")}
-function saveName(){const v=document.getElementById("nameInput").value.trim();if(!v)return toast("Enter a hunter name.");data.name=v.slice(0,24);save();render();toast("Hunter identity updated.")}
-function chooseAvatar(i){data.avatarIndex=i;data.avatar=models[i].emoji;save();render();toast("Hunter model selected!")}
-function spendStat(k){if(data.skillPoints<1)return toast("Not enough skill points.");data.stats[k]=(data.stats[k]||1)+1;data.skillPoints--;save();render();toast(k.toUpperCase()+" increased!")}
-function unlockSkill(s){if(data.abilities.includes(s.id))return;if(data.skillPoints<s.cost)return toast("Not enough skill points.");data.skillPoints-=s.cost;data.abilities.push(s.id);if(s.id==="shadow"&&!data.titles.includes("Shadow Adept"))data.titles.push("Shadow Adept");if(s.id==="monarch"&&!data.titles.includes("Monarch's Presence"))data.titles.push("Monarch's Presence");save();render();toast(s.name+" unlocked!")}
-function equipItem(slot){const options={weapon:["Training Blade","Azure Edge","Shadow Staff"],armor:["Hunter Jacket","Night Cloak","Monarch Robe"],accessory:["None","Mana Ring","Crystal Pendant"]};const list=options[slot],cur=data.equipment[slot]||list[0],next=list[(list.indexOf(cur)+1)%list.length];data.equipment[slot]=next;if(!data.ownedItems.includes(next))data.ownedItems.push(next);save();render();toast("Equipped "+next)}
-function finishDungeon(d){if(data.dungeons.includes(d.id))return toast("Challenge already completed.");let ok=d.id==="gate-e"?daily.filter(q=>isDone(q.id)).length>=2:d.id==="gate-c"?data.totalMissions>=5:data.level>=5;if(!ok)return toast("Challenge requirement not reached yet.");data.dungeons.push(d.id);addXP(d.xp,d.name);toast("Dungeon cleared!")}
 function render(){
- checkDay();document.getElementById("heroName").textContent=(data.name||"HUNTER").toUpperCase();document.getElementById("rankLabel").textContent=rank()+" HUNTER";document.getElementById("levelLabel").textContent="LEVEL "+data.level;document.getElementById("xpText").textContent=data.xp+" / "+(data.level*100)+" XP";document.getElementById("xpBar").style.width=Math.min(100,data.xp/(data.level*100)*100)+"%";
- document.getElementById("statLevel").textContent=data.level;document.getElementById("statXp").textContent=data.totalXp;document.getElementById("statSP").textContent=data.skillPoints;document.getElementById("statStreak").textContent=data.streak;document.getElementById("profileRank").textContent=rank()+" RANK";
- document.getElementById("heroAvatar").textContent=data.avatar||"🧙🏻‍♂️";document.getElementById("profileAvatar").textContent=data.avatar||"🧙🏻‍♂️";document.getElementById("nameInput").value=data.name||"";
- const mini=daily.slice(0,3).map(q=>missionHTML(q,isDone(q.id),"daily")).join("");document.getElementById("dashMissions").innerHTML=mini;
- document.getElementById("dailyList").innerHTML=daily.map(q=>missionHTML(q,isDone(q.id),"daily")).join("");
- document.getElementById("weeklyList").innerHTML=weekly.map(q=>missionHTML(q,data.completedWeekly.includes(q.id),"weekly")).join("");
- document.getElementById("customList").innerHTML=data.customMissions.length?data.customMissions.map((q,i)=>`<div class="mission ${q.done?"complete":""}"><div><b>${esc(q.title)}</b><p>${esc(q.desc||"Personal quest")}</p><span class="xp">+${q.xp} XP</span></div><button class="btn" ${q.done?"disabled":""} onclick="completeCustom(${i})">${q.done?"✓ Done":"Complete"}</button></div>`).join(""):"<p class='muted'>No custom quests yet. Create your own mission.</p>";
- const keys=[["strength","💪 Strength"],["agility","💨 Agility"],["vitality","❤️ Vitality"],["intelligence","🧠 Intelligence"],["sense","👁️ Sense"],["willpower","🔥 Willpower"]];
- const statsHTML=keys.map(([k,label])=>`<div style="margin:10px 0"><div class="row"><span>${label}</span><b>${data.stats[k]||1}</b></div><div class="bar"><i style="width:${Math.min(100,(data.stats[k]||1)*5)}%"></i></div></div>`).join("");
- document.getElementById("dashStats").innerHTML=statsHTML;document.getElementById("hunterStats").innerHTML=keys.map(([k,label])=>`<div class="mission"><div><b>${label}</b><p>Current attribute: ${data.stats[k]||1}</p></div><button class="btn" onclick="spendStat('${k}')">＋ 1 SP</button></div>`).join("");
- document.getElementById("modelList").innerHTML=models.map((m,i)=>`<div class="model ${data.avatarIndex===i?"selected":""}"><img src="${m.img}" alt="${m.name}" loading="lazy" onerror="this.style.display='none'"><div class="model-body"><strong>${m.emoji} ${m.name}</strong><p>${m.rank} • Hunter avatar</p><button class="btn" onclick="chooseAvatar(${i})">${data.avatarIndex===i?"Selected":"Choose"}</button></div></div>`).join("");
- document.getElementById("skillList").innerHTML=skills.map(s=>{const has=data.abilities.includes(s.id);return `<div class="skill"><div class="row"><h3>${s.icon} ${s.name}</h3><span class="pill">${has?"UNLOCKED":s.cost+" SP"}</span></div><p class="muted">${s.desc}</p><button class="btn ${has?"":"primary"}" ${has?"disabled":""} onclick="unlockSkill(skills.find(x=>x.id==='${s.id}'))">${has?"✓ Acquired":"Unlock ability"}</button></div>`}).join("");
- document.getElementById("equipmentList").innerHTML=Object.entries(data.equipment).map(([k,v])=>`<div class="mission"><div><b>${k==="weapon"?"⚔️":k==="armor"?"🛡️":"💍"} ${k.toUpperCase()}</b><p>${esc(v||"None")}</p></div><button class="btn" onclick="equipItem('${k}')">Change</button></div>`).join("");
- document.getElementById("itemsList").innerHTML=data.ownedItems.length?data.ownedItems.map(x=>`<div class="mission"><b>💎 ${esc(x)}</b><span class="pill">Owned</span></div>`).join(""):"<p class='muted'>Your inventory is empty.</p>";
- document.getElementById("achievementList").innerHTML=achievements.map(a=>{const ok=a.test();return `<div class="achievement ${ok?"":"locked"}"><div class="row"><h3>${a.icon} ${a.name}</h3><span class="pill">${ok?"UNLOCKED":"LOCKED"}</span></div><p class="muted">${a.desc}</p></div>`}).join("");
- document.getElementById("activityLog").innerHTML=data.logs.length?data.logs.slice(0,12).map(l=>`<div class="row"><span>${esc(l.text||"Activity")}</span><span class="tiny">${esc(l.time||"")}</span></div>`).join(""):"<p class='muted'>Your activity will appear here.</p>";
- document.getElementById("dungeonList").innerHTML=dungeons.map(d=>{const done=data.dungeons.includes(d.id);return `<div class="panel"><div class="row"><h3>${d.icon} ${d.name}</h3><span class="pill">${d.rank}</span></div><p class="muted">${d.desc}</p><div class="xp">Reward: +${d.xp} XP</div><button class="btn ${done?"":"primary"}" style="margin-top:12px" ${done?"disabled":""} onclick="finishDungeon(dungeons.find(x=>x.id==='${d.id}'))">${done?"✓ Cleared":"Enter challenge"}</button></div>`}).join("");
- document.getElementById("soundBtn").textContent=data.sound?"🔊 Sound: ON":"🔇 Sound: OFF";save();
+ $("level").textContent=data.level;
+ $("rank").textContent=data.rank;
+ $("xp").textContent=data.xp;
+ $("shadows").textContent=data.shadows;
+ $("xpbar").style.width=(data.xp/100*100)+"%";
+ $("xptext").textContent=data.xp+" / 100 XP";
+ $("location").textContent="Coordinates: "+data.x+", "+data.y;
+ $("character").textContent="🧙";
+ $("profileName").textContent="Hunter: "+data.name;
+ $("hunterName").value=data.name;
+ $("attributes").innerHTML=Object.entries(data.attributes).map(([k,v])=>
+ "<div class='item'><span>"+k.toUpperCase()+"</span><b>"+v+"</b></div>").join("");
+ $("items").innerHTML=data.items.map(i=>"<div class='item'>🎒 "+i+"</div>").join("");
+ $("missionList").innerHTML=[
+ ["explore","Explore the city","Explore the world","30 XP"],
+ ["dungeon","Dungeon discovery","Complete a dungeon","50 XP"],
+ ["shadow","Shadow awakening","Summon a shadow","40 XP"]
+ ].map(m=>`<div class="mission"><h3>${m[1]}</h3><p class="small">${m[2]}</p><p class="reward">${m[3]}</p>${data.missions[m[0]]?"<span>✓ COMPLETED</span>":`<button onclick="completeMission('${m[0]}')">COMPLETE</button>`}</div>`).join("");
 }
-function missionHTML(q,done,type){return `<div class="mission ${done?"complete":""}"><div><b>${q.icon} ${q.title}</b><p>${q.desc}</p><span class="xp">+${q.xp} XP</span></div><button class="btn" ${done?"disabled":""} onclick="${type==="daily"?"completeDaily":"completeWeekly"}(${type==="daily"?"daily":"weekly"}.find(x=>x.id==='${q.id}'))">${done?"✓ Done":"Complete"}</button></div>`}
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function showTab(tab){document.querySelectorAll(".section").forEach(s=>s.classList.toggle("active",s.id===tab));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));window.scrollTo({top:0,behavior:"smooth"})}
-document.getElementById("nav").addEventListener("click",e=>{const b=e.target.closest("button[data-tab]");if(b)showTab(b.dataset.tab)});
-function toggleSound(){data.sound=!data.sound;save();render();toast(data.sound?"Sound enabled":"Sound muted")}
-function openSettings(){document.getElementById("modalContent").innerHTML=`<h2>⚙️ System Settings</h2><p class="muted">Manage your local hunter progress.</p><button class="btn" style="width:100%;margin:5px 0" onclick="exportSave()">⬇️ Export progress backup</button><label class="btn" style="display:block;text-align:center;margin:5px 0">⬆️ Import progress backup<input type="file" accept="application/json" id="importFile" hidden onchange="importSave(event)"></label><button class="btn" style="width:100%;margin:5px 0" onclick="closeModal()">Close settings</button><p class="tiny">Reset deletes this browser's saved progress. Export a backup first.</p><button class="btn" style="width:100%;border-color:#ff6b8a;color:#ff9ab0" onclick="resetSave()">Reset all progress</button>`;document.getElementById("modal").classList.add("show")}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-function exportSave(){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="shadow-system-backup.json";a.click();URL.revokeObjectURL(url);toast("Backup exported.")}
-function importSave(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const incoming=JSON.parse(r.result);if(!incoming||typeof incoming!=="object")throw Error();data={...clone(defaults),...incoming,stats:{...defaults.stats,...(incoming.stats||{})},equipment:{...defaults.equipment,...(incoming.equipment||{})}};save();render();closeModal();toast("Progress imported!")}catch(err){toast("Invalid backup file.")}};r.readAsText(f)}
-function resetSave(){if(!confirm("Reset ALL Shadow System progress on this device? Export a backup first if needed."))return;localStorage.removeItem(SAVE_KEY);data=clone(defaults);save();render();closeModal();toast("System reset complete.")}
-document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
-checkDay();if(!data.createdAt)data.createdAt=Date.now();if(!data.logs.length)log("Hunter OS initialized.");save();render();
+function showTab(id,btn){
+ document.querySelectorAll(".tabs").forEach(t=>t.classList.remove("show"));
+ $(id).classList.add("show");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+}
+function addXP(amount){
+ data.xp+=amount;
+ while(data.xp>=100){
+  data.xp-=100;
+  data.level++;
+  data.attributes.strength+=2;
+  data.attributes.agility++;
+  notify("LEVEL UP! You reached level "+data.level);
+ }
+ const ranks=["E","D","C","B","A","S","SS"];
+ data.rank=ranks[Math.min(6,Math.floor((data.level-1)/5))];
+ save();
+}
+function completeMission(type){
+ if(data.missions[type])return;
+ data.missions[type]=true;
+ const rewards={explore:30,dungeon:50,shadow:40};
+ addXP(rewards[type]);
+ notify("MISSION COMPLETE: +"+rewards[type]+" XP");
+ save();
+}
+function move(direction){
+ if(direction==="left")data.x--;
+ if(direction==="right")data.x++;
+ if(direction==="forward")data.y++;
+ if(direction==="back")data.y--;
+ data.x=Math.max(-10,Math.min(10,data.x));
+ data.y=Math.max(-10,Math.min(10,data.y));
+ $("character").style.transform=`translateX(calc(-50% + ${data.x*3}px))`;
+ save();
+}
+function explore(){
+ if(!data.missions.explore){
+  completeMission("explore");
+  $("storyText").textContent="You discovered a forgotten symbol. The System recognizes your courage.";
+ }else notify("You explore the abandoned city again.");
+}
+function summon(){
+ if(data.shadows===0){
+  data.shadows=1;
+  data.items.push("Shadow Companion");
+  completeMission("shadow");
+  $("companion").textContent="👤";
+  notify("SHADOW AWAKENING! Your first companion has appeared.");
+ }else{
+  notify("Your shadow companion is already summoned.");
+ }
+ save();
+}
+function chapter(n){
+ if(n>data.chapter+1){
+  notify("Chapter locked! Complete the previous chapter first.");
+  return;
+ }
+ if(n>5)return;
+ data.chapter=Math.max(data.chapter,n);
+ const stories={
+  1:"You awaken in an unfamiliar city. A blue holographic window appears: [PLAYER IDENTIFIED]. You have been selected.",
+  2:"You discover a glowing portal. Beyond it lies your first dungeon. The System warns you to prepare.",
+  3:"A mysterious voice calls from the darkness. You unlock the ability to summon your first shadow.",
+  4:"Ancient records reveal that the System was created to protect the world from the Monarchs.",
+  5:"The final gate opens. You stand before the ultimate mystery. Your journey has reached its final chapter."
+ };
+ $("storyText").textContent=stories[n];
+ notify("STORY UPDATED: CHAPTER "+n);
+ addXP(10);
+ save();
+}
+function dungeon(){
+ if(data.missions.dungeon){
+  notify("Dungeon already completed. Explore again for fun!");
+  return;
+ }
+ const success=Math.random()>.35;
+ if(success){
+  completeMission("dungeon");
+  data.items.push("Dungeon Crystal");
+  notify("DUNGEON CLEARED! You obtained a Dungeon Crystal.");
+ }else{
+  notify("The dungeon was too difficult. Prepare and try again!");
+ }
+ save();
+}
+function dailyReward(){
+ const today=new Date().toDateString();
+ if(data.daily===today){
+  notify("Daily reward already claimed!");
+  return;
+ }
+ data.daily=today;
+ addXP(20);
+ notify("DAILY REWARD CLAIMED: +20 XP");
+ save();
+}
+function saveName(){
+ const n=$("hunterName").value.trim();
+ if(n.length>0&&n.length<=20){
+  data.name=n;
+  notify("Hunter identity updated.");
+  save();
+ }
+}
+
+/* 3D-style animated world */
+const canvas=$("worldCanvas");
+const ctx=canvas.getContext("2d");
+let stars=Array.from({length:75},()=>({
+ x:Math.random(),y:Math.random()*.8,z:Math.random()
+}));
+function drawWorld(){
+ const rect=canvas.getBoundingClientRect();
+ const w=rect.width,h=rect.height;
+ const dpr=Math.min(devicePixelRatio||1,2);
+ if(canvas.width!==Math.floor(w*dpr)||canvas.height!==Math.floor(h*dpr)){
+  canvas.width=w*dpr;canvas.height=h*dpr;
+ }
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.clearRect(0,0,w,h);
+ ctx.fillStyle="#b9e9ff";
+ stars.forEach(s=>{
+  ctx.globalAlpha=.3+s.z*.7;
+  ctx.beginPath();
+  ctx.arc(s.x*w,s.y*h,1+s.z*1.3,0,Math.PI*2);
+  ctx.fill();
+ });
+ ctx.globalAlpha=1;
+ /* Dungeon buildings */
+ for(let i=0;i<7;i++){
+  const bw=w*.1;
+  const x=i*w/7;
+  const bh=45+(i%3)*27;
+  ctx.fillStyle=i%2?"#152b49":"#1a2440";
+  ctx.beginPath();
+  ctx.moveTo(x,h*.66);
+  ctx.lineTo(x+12,h*.66-bh);
+  ctx.lineTo(x+bw,h*.66-bh+10);
+  ctx.lineTo(x+bw,h*.66);
+  ctx.fill();
+  ctx.fillStyle="#4dbbff";
+  ctx.fillRect(x+15,h*.66-bh+18,4,8);
+ }
+ /* 3D perspective ground */
+ ctx.fillStyle="#101d35";
+ ctx.beginPath();
+ ctx.moveTo(w*.1,h*.65);
+ ctx.lineTo(w*.9,h*.65);
+ ctx.lineTo(w,h);
+ ctx.lineTo(0,h);
+ ctx.fill();
+ ctx.strokeStyle="#24557d";
+ ctx.lineWidth=1;
+ for(let i=0;i<9;i++){
+  let y=h*.67+i*i*2.1;
+  ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();
+ }
+ for(let i=-5;i<=5;i++){
+  ctx.beginPath();
+  ctx.moveTo(w/2+i*5,h*.66);
+  ctx.lineTo(w/2+i*45,h);
+  ctx.stroke();
+ }
+ requestAnimationFrame(drawWorld);
+}
+drawWorld();
+render();
 </script>
 </body>
 </html>
