@@ -3,171 +3,172 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#070914">
-<title>SHADOW SYSTEM | HUNTER OS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070812">
+<title>SHADOW SYSTEM | MONARCH</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#070914;color:#eaf3ff;font-family:Arial,sans-serif}
-header{padding:18px;background:#10172a;border-bottom:1px solid #243a62;text-align:center}
-h1{color:#65caff;letter-spacing:4px;margin:0}
-.sub{color:#849bb9;font-size:11px;margin-top:7px}
-nav{display:flex;overflow:auto;gap:8px;padding:12px;background:#0b1020}
-button{background:#14233b;color:#bce8ff;border:1px solid #31527c;padding:11px 14px;border-radius:9px;cursor:pointer}
-button.active,button:hover{background:#17618a;color:white}
-main{max-width:900px;margin:auto;padding:14px}
-.panel{background:#10182b;border:1px solid #253c60;border-radius:14px;padding:16px;margin-bottom:14px}
-h2{font-size:17px;color:#65caff}
-h3{font-size:14px;color:#b4dfff}
-.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.stat{background:#0b1222;border:1px solid #243959;border-radius:10px;padding:12px}
-.value{font-size:23px;color:#69d5ff;font-weight:bold}
-.small{font-size:12px;color:#91a6c4}
-.bar{height:9px;background:#26344d;border-radius:20px;overflow:hidden;margin-top:7px}
-.fill{height:100%;background:linear-gradient(90deg,#1688d4,#7bdaff);width:0%}
-#world{height:300px;position:relative;overflow:hidden;border-radius:13px;background:radial-gradient(ellipse at 50% 80%,#193c64,#10162e 50%,#050812);perspective:650px}
+:root{--bg:#070812;--panel:#101426;--line:#263553;--blue:#62caff;--purple:#a66cff;--muted:#8999b9}
+body{margin:0;background:var(--bg);color:#edf4ff;font-family:Arial,sans-serif}
+button{cursor:pointer;color:white;background:#182745;border:1px solid #36527c;border-radius:9px;padding:11px 14px;font-weight:bold}
+button:hover{background:#254c78}
+button:disabled{opacity:.4;cursor:not-allowed}
+header{padding:20px;text-align:center;background:linear-gradient(120deg,#10162c,#17112c,#08172a);border-bottom:1px solid var(--line)}
+.logo{font-size:25px;font-weight:900;letter-spacing:5px;color:var(--blue);text-shadow:0 0 20px #249cff}
+header small{color:var(--muted);letter-spacing:3px}
+nav{display:flex;gap:7px;padding:12px;overflow-x:auto;background:#0b1020;position:sticky;top:0;z-index:5}
+nav button{white-space:nowrap;font-size:11px}
+nav button.active{background:#14608b;border-color:#64caff}
+main{max-width:1050px;margin:auto;padding:13px}
+.page{display:none}.page.active{display:block}
+.panel{background:linear-gradient(145deg,#131a30,#0d1221);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:13px}
+h2{font-size:16px;color:var(--blue);letter-spacing:1px}
+h3{font-size:14px;color:#d4e9ff}
+.small{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.stat{padding:13px;background:#080e1c;border:1px solid #263650;border-radius:10px}
+.value{font-size:24px;color:var(--blue);font-weight:bold;margin-top:7px}
+.bar{height:9px;background:#27334c;border-radius:20px;overflow:hidden;margin:9px 0}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#178de9,#b477ff);transition:width .4s}
+#world{height:340px;position:relative;overflow:hidden;border-radius:12px;background:radial-gradient(ellipse at 50% 80%,#214b7b,#15152f 55%,#050711)}
 #world canvas{width:100%;height:100%;display:block}
-.sceneLabel{position:absolute;top:12px;left:12px;background:#050914b9;padding:9px;border-radius:7px;font-size:12px}
-#character{position:absolute;bottom:37px;left:50%;transform:translateX(-50%);font-size:65px;filter:drop-shadow(0 0 16px #43aaff);animation:float 2s infinite ease-in-out;pointer-events:none}
-#companion{position:absolute;bottom:48px;left:25%;font-size:39px;filter:drop-shadow(0 0 15px #945cff);animation:float 2.5s infinite ease-in-out}
-@keyframes float{50%{translate:0 -12px}}
-.worldControls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}
-.tabs{display:none}
-.tabs.show{display:block}
-.mission{background:#0b1425;padding:13px;border-radius:10px;margin:9px 0;border:1px solid #263d5d}
-.reward{color:#68d7ff;font-size:12px}
-#log{height:140px;overflow:auto;font-size:12px;color:#b9d4ec;background:#070d19;padding:12px;border-radius:9px}
-.item{display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid #25334a}
-footer{text-align:center;color:#647b9b;font-size:11px;padding:20px}
-input{background:#0a1221;color:white;border:1px solid #365174;padding:10px;border-radius:8px;width:100%}
+#world:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 65%,#050711b8)}
+.worldtag{position:absolute;top:12px;left:12px;background:#050a17c9;padding:9px;border-radius:7px;font-size:11px;z-index:2}
+.hero{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);font-size:67px;z-index:2;filter:drop-shadow(0 0 17px #51c9ff);animation:float 2.4s infinite ease-in-out}
+.shadow{position:absolute;bottom:48px;left:23%;font-size:43px;z-index:2;filter:drop-shadow(0 0 15px #9c60ff);animation:float 3s infinite}
+@keyframes float{50%{translate:0 -13px}}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.card{background:#0a1222;border:1px solid #293e60;border-radius:11px;padding:13px;margin:9px 0}
+.card.selected{border-color:var(--blue);box-shadow:0 0 16px #248dca40}
+.chapter{display:flex;justify-content:space-between;align-items:center;gap:8px}
+input{width:100%;padding:12px;border-radius:8px;background:#080e1c;color:white;border:1px solid #385177}
+#log{height:115px;overflow:auto;background:#080e19;padding:12px;border-radius:9px;font-size:12px;color:#b6d4f2}
+footer{text-align:center;color:#647b9b;font-size:11px;padding:22px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
 
 <header>
-<h1>SHADOW SYSTEM</h1>
-<div class="sub">HUNTER OS // AWAKENING PROTOCOL</div>
+<div class="logo">SHADOW SYSTEM</div>
+<small>MONARCH EDITION // AWAKENING PROTOCOL</small>
 </header>
 
 <nav>
-<button class="active" onclick="showTab('home',this)">HOME</button>
-<button onclick="showTab('worldTab',this)">WORLD</button>
-<button onclick="showTab('story',this)">STORY</button>
-<button onclick="showTab('missions',this)">MISSIONS</button>
-<button onclick="showTab('inventory',this)">INVENTORY</button>
-<button onclick="showTab('profile',this)">PROFILE</button>
+<button class="active" onclick="tab('home',this)">DASHBOARD</button>
+<button onclick="tab('world',this)">3D WORLD</button>
+<button onclick="tab('story',this)">STORY</button>
+<button onclick="tab('missions',this)">MISSIONS</button>
+<button onclick="tab('characters',this)">CHARACTERS</button>
+<button onclick="tab('inventory',this)">INVENTORY</button>
+<button onclick="tab('profile',this)">PROFILE</button>
 </nav>
 
 <main>
 
-<section id="home" class="tabs show">
+<section class="page active" id="home">
 <div class="panel">
-<h2>PLAYER STATUS</h2>
-<div class="statgrid">
-<div class="stat"><div class="small">HUNTER LEVEL</div><div class="value" id="level">1</div></div>
+<h2>HUNTER STATUS</h2>
+<div class="grid">
+<div class="stat"><div class="small">LEVEL</div><div class="value" id="level">1</div></div>
 <div class="stat"><div class="small">RANK</div><div class="value" id="rank">E</div></div>
 <div class="stat"><div class="small">EXPERIENCE</div><div class="value" id="xp">0</div></div>
 <div class="stat"><div class="small">SHADOWS</div><div class="value" id="shadows">0</div></div>
 </div>
-<h3>XP PROGRESS</h3>
+<h3>EXPERIENCE PROGRESS</h3>
 <div class="bar"><div class="fill" id="xpbar"></div></div>
 <p class="small" id="xptext">0 / 100 XP</p>
 </div>
 
 <div class="panel">
-<h2>SYSTEM NOTIFICATION</h2>
-<p id="notification">[SYSTEM] Welcome, Hunter. Your awakening has begun.</p>
-<button onclick="dailyReward()">CLAIM DAILY REWARD</button>
+<h2>MONARCH NOTIFICATION</h2>
+<p id="notification">[SYSTEM] The Monarch has awakened. Welcome, Hunter.</p>
+<button onclick="daily()">CLAIM DAILY REWARD</button>
 </div>
 
 <div class="panel">
-<h2>QUICK ACTIONS</h2>
-<button onclick="showTab('worldTab')">ENTER WORLD</button>
-<button onclick="showTab('missions')">VIEW MISSIONS</button>
-<button onclick="showTab('story')">CONTINUE STORY</button>
+<h2>QUICK ACCESS</h2>
+<div class="actions">
+<button onclick="tab('world')">ENTER WORLD</button>
+<button onclick="tab('story')">CONTINUE STORY</button>
+<button onclick="tab('missions')">MISSIONS</button>
+</div>
 </div>
 </section>
 
-<section id="worldTab" class="tabs">
+<section class="page" id="world">
 <div class="panel">
-<h2>3D HUNTER WORLD</h2>
+<h2>ABANDONED CITY // ZONE 01</h2>
 <div id="world">
-<canvas id="worldCanvas"></canvas>
-<div class="sceneLabel">LOCATION: ABANDONED CITY</div>
-<div id="companion">👤</div>
-<div id="character">🧙</div>
+<canvas id="scene"></canvas>
+<div class="worldtag">LOCATION: FORGOTTEN CITY</div>
+<div class="shadow" id="shadowSprite">👤</div>
+<div class="hero" id="heroSprite">🗡️</div>
 </div>
-<div class="worldControls">
-<button onclick="move('left')">◀ LEFT</button>
-<button onclick="move('forward')">▲ FORWARD</button>
-<button onclick="move('right')">RIGHT ▶</button>
-<button onclick="move('back')">▼ BACK</button>
+<p class="small" id="coordinates">Coordinates: 0, 0</p>
+<div class="actions">
+<button onclick="move(-1,0)">◀ LEFT</button>
+<button onclick="move(0,1)">▲ FORWARD</button>
+<button onclick="move(0,-1)">▼ BACK</button>
+<button onclick="move(1,0)">RIGHT ▶</button>
 </div>
-<p class="small" id="location">Coordinates: 0, 0</p>
+<div class="actions">
 <button onclick="explore()">EXPLORE AREA</button>
 <button onclick="summon()">SUMMON SHADOW</button>
 </div>
-</section>
-
-<section id="story" class="tabs">
-<div class="panel">
-<h2>THE AWAKENING</h2>
-<div class="mission">
-<h3>CHAPTER 1: THE UNKNOWN HUNTER</h3>
-<p>You wake up in a mysterious world. A strange blue window appears before you.</p>
-<button onclick="chapter(1)">BEGIN CHAPTER</button>
-</div>
-<div class="mission">
-<h3>CHAPTER 2: FIRST DUNGEON</h3>
-<p>Discover the entrance to a forgotten dungeon.</p>
-<button onclick="chapter(2)">UNLOCK CHAPTER</button>
-</div>
-<div class="mission">
-<h3>CHAPTER 3: SHADOW AWAKENING</h3>
-<p>A mysterious power waits beyond the dungeon.</p>
-<button onclick="chapter(3)">UNLOCK CHAPTER</button>
-</div>
-<div class="mission">
-<h3>CHAPTER 4: THE MONARCH'S SECRET</h3>
-<p>Discover the truth behind the System.</p>
-<button onclick="chapter(4)">UNLOCK CHAPTER</button>
-</div>
-<div class="mission">
-<h3>CHAPTER 5: THE FINAL GATE</h3>
-<p>Your final challenge awaits.</p>
-<button onclick="chapter(5)">UNLOCK CHAPTER</button>
-</div>
-<div id="storyText" class="mission">Your story begins here, Hunter.</div>
 </div>
 </section>
 
-<section id="missions" class="tabs">
+<section class="page" id="story">
 <div class="panel">
-<h2>DAILY MISSIONS</h2>
+<h2>THE LAST MONARCH</h2>
+<p class="small">Seven chapters. One destiny. Discover the truth behind the System.</p>
+<div id="chapters"></div>
+<div class="card">
+<h3>STORY TRANSMISSION</h3>
+<p id="storyText">The world is waiting for its Hunter.</p>
+</div>
+</div>
+</section>
+
+<section class="page" id="missions">
+<div class="panel">
+<h2>HUNTER MISSIONS</h2>
 <div id="missionList"></div>
 </div>
 <div class="panel">
-<h2>DUNGEON CHALLENGE</h2>
-<p>Enter the mysterious dungeon and test your Hunter rank.</p>
+<h2>DUNGEON GATE</h2>
+<p class="small">A mysterious portal has appeared. Enter the fictional dungeon challenge.</p>
 <button onclick="dungeon()">ENTER DUNGEON</button>
 </div>
 </section>
 
-<section id="inventory" class="tabs">
+<section class="page" id="characters">
 <div class="panel">
-<h2>INVENTORY</h2>
+<h2>CHARACTER SELECTION</h2>
+<div id="characterList"></div>
+</div>
+<div class="panel">
+<h2>SHADOW LEGION</h2>
+<div id="legion"></div>
+<button onclick="summon()">AWAKEN SHADOW</button>
+</div>
+</section>
+
+<section class="page" id="inventory">
+<div class="panel">
+<h2>HUNTER INVENTORY</h2>
 <div id="items"></div>
 </div>
 </section>
 
-<section id="profile" class="tabs">
+<section class="page" id="profile">
 <div class="panel">
-<h2>HUNTER PROFILE</h2>
-<div style="font-size:65px;text-align:center">🧙</div>
-<label>Hunter name</label>
-<input id="hunterName" placeholder="Enter hunter name">
-<button onclick="saveName()">SAVE NAME</button>
-<p class="small" id="profileName"></p>
+<h2>IDENTITY</h2>
+<div style="font-size:60px;text-align:center" id="profileIcon">🗡️</div>
+<label class="small">HUNTER NAME</label>
+<input id="hunterName" maxlength="20" placeholder="Enter your name">
+<button onclick="saveName()">UPDATE IDENTITY</button>
 <h3>ATTRIBUTES</h3>
 <div id="attributes"></div>
 </div>
@@ -175,232 +176,269 @@ input{background:#0a1221;color:white;border:1px solid #365174;padding:10px;borde
 
 <div class="panel">
 <h2>SYSTEM LOG</h2>
-<div id="log">[SYSTEM] Hunter OS initialized...</div>
+<div id="log">[SYSTEM] Monarch protocol initialized...</div>
 </div>
 
 </main>
-
-<footer>SHADOW SYSTEM © 2026 | HUNTER OS</footer>
+<footer>SHADOW SYSTEM // MONARCH EDITION // 2026</footer>
 
 <script>
-const DEFAULT={
- level:1,xp:0,rank:"E",shadows:0,
- chapter:0,name:"Hunter",
- x:0,y:0,items:["Hunter Starter Outfit"],
- attributes:{strength:10,agility:10,intelligence:10},
- missions:{explore:false,dungeon:false,shadow:false},
- daily:"",
+const defaults={
+level:1,xp:0,rank:"E",shadows:0,chapter:0,
+name:"Hunter",x:0,y:0,items:["Hunter Starter Outfit"],
+daily:"",character:"Assassin",
+attributes:{strength:10,agility:10,intelligence:10},
+missions:{explore:false,dungeon:false,shadow:false},
+unlocked:["Assassin"]
 };
+
 let data;
 try{
- data={...DEFAULT,...JSON.parse(localStorage.getItem("shadowData")||"{}")};
- data.attributes={...DEFAULT.attributes,...(data.attributes||{})};
- data.missions={...DEFAULT.missions,...(data.missions||{})};
-}catch(e){data={...DEFAULT};}
+ const old=JSON.parse(localStorage.getItem("shadowData")||"{}");
+ data={...defaults,...old};
+ data.attributes={...defaults.attributes,...(old.attributes||{})};
+ data.missions={...defaults.missions,...(old.missions||{})};
+ data.items=Array.isArray(old.items)?old.items:defaults.items;
+ data.unlocked=Array.isArray(old.unlocked)?old.unlocked:["Assassin"];
+}catch(e){data={...defaults};}
 
 const $=id=>document.getElementById(id);
+
 function save(){
- localStorage.setItem("shadowData",JSON.stringify(data));
+ try{localStorage.setItem("shadowData",JSON.stringify(data))}
+ catch(e){log("Storage unavailable");}
  render();
 }
-function log(msg){
- $("log").innerHTML+="<br>"+msg;
+function log(s){
+ $("log").innerHTML+="<br>"+s;
  $("log").scrollTop=$("log").scrollHeight;
 }
-function notify(msg){
- $("notification").textContent=msg;
- log(msg);
+function notice(s){
+ $("notification").textContent=s;
+ log(s);
 }
-function render(){
- $("level").textContent=data.level;
- $("rank").textContent=data.rank;
- $("xp").textContent=data.xp;
- $("shadows").textContent=data.shadows;
- $("xpbar").style.width=(data.xp/100*100)+"%";
- $("xptext").textContent=data.xp+" / 100 XP";
- $("location").textContent="Coordinates: "+data.x+", "+data.y;
- $("character").textContent="🧙";
- $("profileName").textContent="Hunter: "+data.name;
- $("hunterName").value=data.name;
- $("attributes").innerHTML=Object.entries(data.attributes).map(([k,v])=>
- "<div class='item'><span>"+k.toUpperCase()+"</span><b>"+v+"</b></div>").join("");
- $("items").innerHTML=data.items.map(i=>"<div class='item'>🎒 "+i+"</div>").join("");
- $("missionList").innerHTML=[
- ["explore","Explore the city","Explore the world","30 XP"],
- ["dungeon","Dungeon discovery","Complete a dungeon","50 XP"],
- ["shadow","Shadow awakening","Summon a shadow","40 XP"]
- ].map(m=>`<div class="mission"><h3>${m[1]}</h3><p class="small">${m[2]}</p><p class="reward">${m[3]}</p>${data.missions[m[0]]?"<span>✓ COMPLETED</span>":`<button onclick="completeMission('${m[0]}')">COMPLETE</button>`}</div>`).join("");
-}
-function showTab(id,btn){
- document.querySelectorAll(".tabs").forEach(t=>t.classList.remove("show"));
- $(id).classList.add("show");
+function tab(id,btn){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ $(id).classList.add("active");
  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
  if(btn)btn.classList.add("active");
 }
-function addXP(amount){
+function xp(amount){
  data.xp+=amount;
  while(data.xp>=100){
   data.xp-=100;
   data.level++;
   data.attributes.strength+=2;
-  data.attributes.agility++;
-  notify("LEVEL UP! You reached level "+data.level);
+  data.attributes.agility+=1;
+  notice("LEVEL UP! Hunter level "+data.level);
  }
- const ranks=["E","D","C","B","A","S","SS"];
- data.rank=ranks[Math.min(6,Math.floor((data.level-1)/5))];
+ const ranks=["E","D","C","B","A","S","SS","SSS"];
+ data.rank=ranks[Math.min(7,Math.floor((data.level-1)/5))];
  save();
 }
-function completeMission(type){
- if(data.missions[type])return;
- data.missions[type]=true;
- const rewards={explore:30,dungeon:50,shadow:40};
- addXP(rewards[type]);
- notify("MISSION COMPLETE: +"+rewards[type]+" XP");
+function render(){
+ $("level").textContent=data.level;
+ $("xp").textContent=data.xp;
+ $("rank").textContent=data.rank;
+ $("shadows").textContent=data.shadows;
+ $("xpbar").style.width=data.xp+"%";
+ $("xptext").textContent=data.xp+" / 100 XP";
+ $("coordinates").textContent="Coordinates: "+data.x+", "+data.y;
+ $("heroSprite").textContent=characters[data.character]?.icon||"🗡️";
+ $("profileIcon").textContent=characters[data.character]?.icon||"🗡️";
+ $("hunterName").value=data.name;
+ $("items").innerHTML=data.items.map(i=>`<div class="card">🎒 ${safe(i)}</div>`).join("");
+ $("legion").innerHTML=data.shadows?
+ `👤 Shadow companion unlocked × ${data.shadows}`:"No shadows awakened yet.";
+ $("attributes").innerHTML=Object.entries(data.attributes).map(([k,v])=>
+ `<div class="card">${k.toUpperCase()} : <b>${v}</b></div>`).join("");
+ renderMissions();
+ renderChapters();
+ renderCharacters();
+}
+function safe(s){
+ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+const characters={
+ Assassin:{icon:"🗡️",description:"A swift hunter of the shadows.",level:1},
+ Knight:{icon:"🛡️",description:"A guardian with powerful defense.",level:5},
+ Monarch:{icon:"👑",description:"The ruler of the shadow legion.",level:15}
+};
+function renderCharacters(){
+ $("characterList").innerHTML=Object.entries(characters).map(([name,c])=>
+ `<div class="card ${data.character===name?"selected":""}">
+ <h3>${c.icon} ${name}</h3>
+ <p class="small">${c.description}</p>
+ <button ${data.level<c.level?"disabled":""} onclick="selectCharacter('${name}')">
+ ${data.character===name?"SELECTED":data.level<c.level?"UNLOCK AT LEVEL "+c.level:"SELECT"}
+ </button></div>`).join("");
+}
+function selectCharacter(name){
+ if(!characters[name]||data.level<characters[name].level)return;
+ data.character=name;
+ notice(name+" selected.");
  save();
 }
-function move(direction){
- if(direction==="left")data.x--;
- if(direction==="right")data.x++;
- if(direction==="forward")data.y++;
- if(direction==="back")data.y--;
- data.x=Math.max(-10,Math.min(10,data.x));
- data.y=Math.max(-10,Math.min(10,data.y));
- $("character").style.transform=`translateX(calc(-50% + ${data.x*3}px))`;
+const chapters=[
+ ["The Forgotten Awakening","You awaken in an unfamiliar city. A mysterious blue interface appears before your eyes. The System has selected you."],
+ ["The City Without Sunlight","The sun disappears over the abandoned city. You discover a strange portal beneath the streets."],
+ ["The Seven Sealed Gates","Seven mysterious gates appear. Each one contains a forgotten secret."],
+ ["The Shadow Legion","A strange voice calls from the darkness. You discover the power to awaken shadows."],
+ ["Betrayal of the Architect","An ancient message reveals that the System hides a secret about its creator."],
+ ["The Lost Monarch","You discover the lost Monarch and the origin of the seven gates."],
+ ["The Eternal Throne","The final gate opens. The future of the Hunter world rests in your hands."]
+];
+function renderChapters(){
+ $("chapters").innerHTML=chapters.map((c,i)=>
+ `<div class="card"><div class="chapter"><h3>CHAPTER ${i+1}: ${c[0]}</h3>
+ <button onclick="chapter(${i+1})" ${i+1>data.chapter+1?"disabled":""}>${i<data.chapter?"REPLAY":i===data.chapter?"OPEN":"LOCKED"}</button></div>
+ <p class="small">${i+1>data.chapter+1?"Complete previous chapters to unlock.":c[1]}</p></div>`).join("");
+}
+function chapter(n){
+ if(n>data.chapter+1)return notice("Complete the previous chapter first.");
+ data.chapter=Math.max(data.chapter,n);
+ $("storyText").textContent=chapters[n-1][1];
+ notice("STORY UPDATED: CHAPTER "+n);
+ if(n>data.chapter-0)xp(10);
+ save();
+}
+const missionDefs=[
+ ["explore","Explore the city","Discover the abandoned city.",30],
+ ["dungeon","Dungeon discovery","Complete a dungeon challenge.",50],
+ ["shadow","Shadow awakening","Awaken your first companion.",40]
+];
+function renderMissions(){
+ $("missionList").innerHTML=missionDefs.map(m=>
+ `<div class="card"><h3>${m[1]}</h3><p class="small">${m[2]}</p>
+ <p style="color:var(--blue)">Reward: ${m[3]} XP</p>
+ <button ${data.missions[m[0]]?"disabled":""} onclick="complete('${m[0]}')">
+ ${data.missions[m[0]]?"COMPLETED ✓":"CLAIM MISSION"}
+ </button></div>`).join("");
+}
+function complete(key){
+ if(data.missions[key])return;
+ const m=missionDefs.find(x=>x[0]===key);
+ if(!m)return;
+ data.missions[key]=true;
+ xp(m[3]);
+ notice("MISSION COMPLETE: "+m[1]);
+ save();
+}
+function move(dx,dy){
+ data.x=Math.max(-10,Math.min(10,data.x+dx));
+ data.y=Math.max(-10,Math.min(10,data.y+dy));
+ $("heroSprite").style.transform=`translateX(calc(-50% + ${data.x*4}px))`;
  save();
 }
 function explore(){
- if(!data.missions.explore){
-  completeMission("explore");
-  $("storyText").textContent="You discovered a forgotten symbol. The System recognizes your courage.";
- }else notify("You explore the abandoned city again.");
+ if(!data.missions.explore)complete("explore");
+ else notice("You explore the forgotten city again.");
 }
 function summon(){
  if(data.shadows===0){
   data.shadows=1;
-  data.items.push("Shadow Companion");
-  completeMission("shadow");
-  $("companion").textContent="👤";
-  notify("SHADOW AWAKENING! Your first companion has appeared.");
+  data.items.push("Awakened Shadow Companion");
+  if(!data.missions.shadow)complete("shadow");
+  notice("SHADOW AWAKENED! Your legion begins.");
  }else{
-  notify("Your shadow companion is already summoned.");
+  data.shadows++;
+  data.items.push("Shadow Companion "+data.shadows);
+  notice("A new shadow joins your legion.");
  }
- save();
-}
-function chapter(n){
- if(n>data.chapter+1){
-  notify("Chapter locked! Complete the previous chapter first.");
-  return;
- }
- if(n>5)return;
- data.chapter=Math.max(data.chapter,n);
- const stories={
-  1:"You awaken in an unfamiliar city. A blue holographic window appears: [PLAYER IDENTIFIED]. You have been selected.",
-  2:"You discover a glowing portal. Beyond it lies your first dungeon. The System warns you to prepare.",
-  3:"A mysterious voice calls from the darkness. You unlock the ability to summon your first shadow.",
-  4:"Ancient records reveal that the System was created to protect the world from the Monarchs.",
-  5:"The final gate opens. You stand before the ultimate mystery. Your journey has reached its final chapter."
- };
- $("storyText").textContent=stories[n];
- notify("STORY UPDATED: CHAPTER "+n);
- addXP(10);
  save();
 }
 function dungeon(){
- if(data.missions.dungeon){
-  notify("Dungeon already completed. Explore again for fun!");
-  return;
- }
- const success=Math.random()>.35;
- if(success){
-  completeMission("dungeon");
-  data.items.push("Dungeon Crystal");
-  notify("DUNGEON CLEARED! You obtained a Dungeon Crystal.");
+ if(!data.missions.dungeon){
+  if(Math.random()>.35){
+   data.items.push("Dungeon Crystal");
+   complete("dungeon");
+   notice("DUNGEON CLEARED! Crystal obtained.");
+  }else notice("The dungeon challenge defeated you. Try again!");
  }else{
-  notify("The dungeon was too difficult. Prepare and try again!");
+  notice("You have already cleared this dungeon.");
  }
  save();
 }
-function dailyReward(){
+function daily(){
  const today=new Date().toDateString();
- if(data.daily===today){
-  notify("Daily reward already claimed!");
-  return;
- }
+ if(data.daily===today)return notice("Daily reward already claimed.");
  data.daily=today;
- addXP(20);
- notify("DAILY REWARD CLAIMED: +20 XP");
+ xp(20);
+ notice("DAILY REWARD: +20 XP");
  save();
 }
 function saveName(){
  const n=$("hunterName").value.trim();
- if(n.length>0&&n.length<=20){
-  data.name=n;
-  notify("Hunter identity updated.");
-  save();
- }
+ if(!n)return;
+ data.name=n;
+ notice("Identity updated.");
+ save();
 }
 
-/* 3D-style animated world */
-const canvas=$("worldCanvas");
+/* Animated fantasy city canvas */
+const canvas=$("scene");
 const ctx=canvas.getContext("2d");
-let stars=Array.from({length:75},()=>({
- x:Math.random(),y:Math.random()*.8,z:Math.random()
+let stars=Array.from({length:90},()=>({
+ x:Math.random(),y:Math.random()*.8,r:Math.random()*1.8
 }));
-function drawWorld(){
- const rect=canvas.getBoundingClientRect();
- const w=rect.width,h=rect.height;
+let tick=0;
+function draw(){
+ const w=canvas.clientWidth,h=canvas.clientHeight;
  const dpr=Math.min(devicePixelRatio||1,2);
- if(canvas.width!==Math.floor(w*dpr)||canvas.height!==Math.floor(h*dpr)){
+ if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){
   canvas.width=w*dpr;canvas.height=h*dpr;
  }
  ctx.setTransform(dpr,0,0,dpr,0,0);
  ctx.clearRect(0,0,w,h);
- ctx.fillStyle="#b9e9ff";
+ tick+=.01;
+ let glow=ctx.createRadialGradient(w/2,h*.65,5,w/2,h*.65,w*.7);
+ glow.addColorStop(0,"#243e70");
+ glow.addColorStop(1,"#080b19");
+ ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
  stars.forEach(s=>{
-  ctx.globalAlpha=.3+s.z*.7;
-  ctx.beginPath();
-  ctx.arc(s.x*w,s.y*h,1+s.z*1.3,0,Math.PI*2);
-  ctx.fill();
+  ctx.fillStyle="#c8eaff";
+  ctx.globalAlpha=.3+Math.sin(tick*2+s.x*10)*.4;
+  ctx.fillRect(s.x*w,s.y*h,s.r,s.r);
  });
  ctx.globalAlpha=1;
- /* Dungeon buildings */
- for(let i=0;i<7;i++){
-  const bw=w*.1;
-  const x=i*w/7;
-  const bh=45+(i%3)*27;
-  ctx.fillStyle=i%2?"#152b49":"#1a2440";
-  ctx.beginPath();
-  ctx.moveTo(x,h*.66);
-  ctx.lineTo(x+12,h*.66-bh);
-  ctx.lineTo(x+bw,h*.66-bh+10);
-  ctx.lineTo(x+bw,h*.66);
-  ctx.fill();
-  ctx.fillStyle="#4dbbff";
-  ctx.fillRect(x+15,h*.66-bh+18,4,8);
- }
- /* 3D perspective ground */
- ctx.fillStyle="#101d35";
- ctx.beginPath();
- ctx.moveTo(w*.1,h*.65);
- ctx.lineTo(w*.9,h*.65);
- ctx.lineTo(w,h);
- ctx.lineTo(0,h);
- ctx.fill();
- ctx.strokeStyle="#24557d";
- ctx.lineWidth=1;
  for(let i=0;i<9;i++){
-  let y=h*.67+i*i*2.1;
+  let bw=w/9;
+  let bh=55+(i%4)*28;
+  let x=i*bw;
+  ctx.fillStyle=i%2?"#142642":"#1a2540";
+  ctx.fillRect(x,h*.63-bh,bw-4,bh);
+  ctx.fillStyle="#55bfff";
+  for(let j=0;j<3;j++){
+   ctx.globalAlpha=.35+Math.sin(tick*3+i+j)*.3;
+   ctx.fillRect(x+8+j*12,h*.63-bh+15,4,9);
+  }
+ }
+ ctx.globalAlpha=1;
+ ctx.fillStyle="#111e38";
+ ctx.beginPath();
+ ctx.moveTo(w*.12,h*.63);ctx.lineTo(w*.88,h*.63);
+ ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.fill();
+ ctx.strokeStyle="#286394";ctx.lineWidth=1;
+ for(let i=0;i<9;i++){
+  let y=h*.66+i*i*2.4;
   ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();
  }
- for(let i=-5;i<=5;i++){
+ for(let i=-6;i<=6;i++){
   ctx.beginPath();
-  ctx.moveTo(w/2+i*5,h*.66);
-  ctx.lineTo(w/2+i*45,h);
+  ctx.moveTo(w/2+i*4,h*.63);
+  ctx.lineTo(w/2+i*48,h);
   ctx.stroke();
  }
- requestAnimationFrame(drawWorld);
+ /* Glowing portal */
+ let px=w*.78,py=h*.56;
+ ctx.save();
+ ctx.shadowBlur=25;ctx.shadowColor="#9c53ff";
+ ctx.strokeStyle="#a66cff";ctx.lineWidth=3;
+ ctx.beginPath();ctx.ellipse(px,py,20+Math.sin(tick*2)*2,39,0,0,Math.PI*2);ctx.stroke();
+ ctx.restore();
+ requestAnimationFrame(draw);
 }
-drawWorld();
+draw();
 render();
 </script>
 </body>
